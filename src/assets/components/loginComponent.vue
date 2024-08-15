@@ -6,6 +6,7 @@ import { RouterLink } from 'vue-router';
     <img class="background" src="/imagens/background.png">
     <main>
         <section class="logo">
+            <span><RouterLink to="/">Voltar</RouterLink></span>
             <img src="/icons/logo-pequena.png">
             <h1>Fazer Login</h1>
         </section>
@@ -20,16 +21,12 @@ import { RouterLink } from 'vue-router';
         </section>
     </main>
 </template>
-<style>
+<style scoped>
 main {
     z-index: 1;
-}
-
-#app {
-    display: flex;
-    justify-content: center;
     height: 100vh;
-    background-color: #f5f5f5;
+    position: relative;
+    padding-top: 10px;
 }
 
 h1 {

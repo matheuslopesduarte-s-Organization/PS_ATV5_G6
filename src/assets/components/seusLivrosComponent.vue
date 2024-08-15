@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 
 </script>
 <template>
-    <headerComponent activeButton="emprestimo" />
+    <headerComponent activeButton="seus_livros" />
     <main>
         <section class="title">
             <h1>Seus Livros</h1>

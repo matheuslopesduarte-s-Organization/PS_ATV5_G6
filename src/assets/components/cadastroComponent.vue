@@ -6,6 +6,7 @@ import { RouterLink } from 'vue-router';
     <img class="background" src="/imagens/background.png">
     <main>
         <section class="logo">
+            <span><RouterLink to="/">Voltar</RouterLink></span>
             <img src="/icons/logo-pequena.png">
             <h1>Cadastrar</h1>
         </section>
@@ -17,20 +18,16 @@ import { RouterLink } from 'vue-router';
                 
                 <button>Cadastrar</button>
             </form>
-            <span>Não possui conta? <RouterLink to="/cadastro">Cadastrar</RouterLink></span>
+            <span>Já possui conta? <RouterLink to="/login">Login</RouterLink></span>
         </section>
     </main>
 </template>
-<style>
+<style scoped>
 main {
     z-index: 1;
-}
-
-#app {
-    display: flex;
-    justify-content: center;
     height: 100vh;
-    background-color: #f5f5f5;
+    position: relative;
+    padding-top: 10px;
 }
 
 h1 {
