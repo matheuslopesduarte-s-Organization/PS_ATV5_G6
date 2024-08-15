@@ -1,10 +1,8 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import headerComponent from './headerComponent.vue';
 </script>
 
 <template>
-    <headerComponent />
     <footer>
         <div class="divisoria">
             <a><img class="icon" src="/icons/instagram-logo.png"></a>
@@ -32,9 +30,7 @@ import headerComponent from './headerComponent.vue';
         color: white;
         text-align: center;
         padding: 10px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
+        width: calc(100% - 20px);
         color: black;
         text-decoration: none;
         font-family: 'Inter', sans-serif;
