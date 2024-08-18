@@ -11,18 +11,12 @@ const router = createRouter({
     {
       path: '/acervo',
       name: 'acervo',
-      children: [
-        {
-          path: '',
-          name: 'acervo',
-          component: () => import('../components/acervoComponent.vue')
-        },
-        {
-          path: 'detalhes/:id',
-          name: 'livro',
-          component: () => import('../components/acervoSingleComponent.vue')
-        }
-      ]
+      component: () => import('../components/acervoComponent.vue')
+    },
+    {
+      path: '/livro/:id',
+      name: 'livro',
+      component: () => import('../components/acervoSingleComponent.vue')
     },
     {
       path: '/seuslivros',
@@ -39,7 +33,7 @@ const router = createRouter({
       name: 'cadastro',
       component: () => import('../components/cadastroComponent.vue')
     }
-  ]   
+  ]
 })
 
 export default router

@@ -43,7 +43,7 @@ function pPagi(index) {
 
 <template>
   <section class="title">
-    <h1>Seus Livros</h1>
+    <h1>{{ props.title }}</h1>
   </section>
   <section class="livros">
     <button :class="(pagiAtual <= 0) ? 'button-left hide' : 'button-left'" @click="voltPagi"><img
@@ -142,9 +142,9 @@ function pPagi(index) {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: calc(100% - 15% - 40px);
+  width: calc(100% - 25% - 40px);
   padding: 20px;
-  margin-left: 15%;
+  margin-left: 25%;
 }
 
 .title h1 {
