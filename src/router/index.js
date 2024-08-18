@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../assets/components/homeComponent.vue')
+      component: () => import('../components/homeComponent.vue')
     },
     {
       path: '/acervo',
@@ -15,29 +15,29 @@ const router = createRouter({
         {
           path: '',
           name: 'acervo',
-          component: () => import('../assets/components/acervoComponent.vue')
+          component: () => import('../components/acervoComponent.vue')
         },
         {
           path: 'detalhes/:id',
           name: 'livro',
-          component: () => import('../assets/components/acervoSingleComponent.vue')
+          component: () => import('../components/acervoSingleComponent.vue')
         }
       ]
     },
     {
       path: '/seuslivros',
       name: 'seuslivros',
-      component: () => import('../assets/components/seusLivrosComponent.vue')
+      component: () => import('../components/seusLivrosComponent.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../assets/components/loginComponent.vue')
+      component: () => import('../components/loginComponent.vue')
     },
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: () => import('../assets/components/cadastroComponent.vue')
+      component: () => import('../components/cadastroComponent.vue')
     }
   ]   
 })

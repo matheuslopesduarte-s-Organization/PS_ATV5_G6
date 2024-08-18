@@ -88,6 +88,10 @@ document.addEventListener('scroll', () => {
         margin: 0 15px;
     }
 
+    .logo {
+        user-select: none;
+    }
+
     .login {
         background-color: #333333;
         padding: 10px 20px;

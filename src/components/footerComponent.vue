@@ -15,8 +15,8 @@ import { RouterLink } from 'vue-router';
             <RouterLink class="link" to="/about">Suporte</RouterLink>
             <span>•</span>
             <RouterLink class="link" to="/contact">Contato</RouterLink>
-        </div class="divisoria">
-        <div style="display: inline-flex;align-items: center;">
+        </div>
+        <div style="display: inline-flex;align-items: center; user-select: none">
             <span>© 2024</span>
             <span>
                 <img style="height: 32px;" class="logo" src="/icons/logo-grande.png">
@@ -39,6 +39,7 @@ import { RouterLink } from 'vue-router';
         width: 35px;
         height: 35px;
         margin: 10px;
+        user-select: none;
     }
     .divisoria {
         margin: 6px 0px;

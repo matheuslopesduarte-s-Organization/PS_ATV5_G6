@@ -1,39 +1,69 @@
 <script setup>
 import headerComponent from './headerComponent.vue';
 import footerComponent from './footerComponent.vue';
-import { RouterLink } from 'vue-router';
+import carroselComponent from './carroselComponent.vue';
 
-const aa = [,,,,,,,,]
+const itens = [
+    {
+        id: 1,
+        titulo: 'Livro 1',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/1'
+    },
+    {
+        id: 2,
+        titulo: 'Livro 2',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/2'
+    },
+    {
+        id: 3,
+        titulo: 'Livro 3',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/3'
+    },
+    {
+        id: 4,
+        titulo: 'Livro 4',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/4'
+    },
+    {
+        id: 5,
+        titulo: 'Livro 5',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/5'
+    },
+    {
+        id: 6,
+        titulo: 'Livro 6',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/6'
+    },
+    {
+        id: 7,
+        titulo: 'Livro 7',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/7'
+    },
+    {
+        id: 8,
+        titulo: 'Livro 8',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/8'
+    },
+    {
+        id: 9,
+        titulo: 'Livro 9',
+        capa: '/imagens/livro-capa.png',
+        to: '/acervo/detalhes/9'
+    }
+]
 </script>
 <template>
     <headerComponent activeButton="emprestimo" />
     <main>
-        <section class="title">
-            <h1>Acervo</h1>
-        </section>
-        <section class="livros">
-            <span class="search">
-                <input type="text" placeholder="Pesquise um livro...">
-                <img src="/icons/search.png">
-            </span>
-            <div v-for="a in aa" class="genero">
-                <div>
-                    <h2>genero</h2>
-                </div>
-                <div class="itens">
-                    <RouterLink to="/acervo/detalhes/1" class="item">
-                        <img src="/imagens/livro-capa.png">
-                    </RouterLink>
-                    <RouterLink to="/acervo/detalhes/2" class="item">
-                        <img src="/imagens/livro-capa.png">
-                    </RouterLink>
-                    <RouterLink to="/acervo/detalhes/3" class="item">
-                        <img src="/imagens/livro-capa.png">
-                    </RouterLink>
-                </div>
-            </div>
-
-        </section>
+        <carroselComponent v-for="a in itens" :key="a" :items="itens" title="Seus Livros" />
     </main>
     <footerComponent />
 </template>
@@ -84,6 +114,7 @@ main {
     align-items: center;
     margin: 45px;
 }
+
 .itens {
     display: flex;
     justify-content: center;
@@ -91,19 +122,23 @@ main {
     gap: 40px;
     margin: 20px;
 }
+
 .item {
     width: 200px;
     height: 282px;
     object-fit: cover;
 }
+
 .item img {
     width: 200px;
     height: 282px;
 }
+
 .item:hover {
     transform: scale(1.1);
     cursor: pointer;
 }
+
 .genero h2 {
     font-size: 24px;
     font-weight: 700;
