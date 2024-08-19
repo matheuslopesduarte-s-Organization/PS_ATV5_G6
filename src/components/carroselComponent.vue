@@ -16,7 +16,7 @@ const paginas = computed(() => {
 
 const trackStyle = computed(() => {
   return {
-    transform: `translateX(-${pagiAtual.value * (105 / porPagi)}%)`
+    transform: `translateX(-${pagiAtual.value * (106 / porPagi)}%)`
   };
 });
 
