@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router';
     <img class="background" src="/imagens/background.png">
     <main>
         <section class="logo">
-            <span><RouterLink to="/">Voltar</RouterLink></span>
+            <span><RouterLink to="/">Voltar a pagina inicial</RouterLink></span>
             <img src="/icons/logo-pequena.png">
             <h1>Fazer Login</h1>
         </section>

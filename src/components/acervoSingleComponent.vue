@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router';
 <template>
     <headerComponent activeButton="emprestimo" />
     <main>
+        <span><RouterLink to="/">Voltar a pagina inicial</RouterLink></span>
         <section class="title">
             <h1>Sede - Amélie Nothomb</h1>
         </section>
@@ -86,5 +87,17 @@ main {
     display: flex;
     margin-left: 40px;
     margin-top: 80px;
+}
+
+span {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+span a {
+    color: #5E8194;
+    text-decoration: none;
 }
 </style>
