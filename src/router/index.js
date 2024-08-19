@@ -6,9 +6,34 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../assets/components/footerComponent.vue')
+      component: () => import('../components/homeComponent.vue')
+    },
+    {
+      path: '/acervo',
+      name: 'acervo',
+      component: () => import('../components/acervoComponent.vue')
+    },
+    {
+      path: '/livro/:id',
+      name: 'livro',
+      component: () => import('../components/acervoSingleComponent.vue')
+    },
+    {
+      path: '/seuslivros',
+      name: 'seuslivros',
+      component: () => import('../components/seusLivrosComponent.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../components/loginComponent.vue')
+    },
+    {
+      path: '/cadastro',
+      name: 'cadastro',
+      component: () => import('../components/cadastroComponent.vue')
     }
-  ]   
+  ]
 })
 
 export default router

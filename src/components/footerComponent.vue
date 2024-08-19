@@ -1,10 +1,8 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import headerComponent from './headerComponent.vue';
 </script>
 
 <template>
-    <headerComponent />
     <footer>
         <div class="divisoria">
             <a><img class="icon" src="/icons/instagram-logo.png"></a>
@@ -17,8 +15,8 @@ import headerComponent from './headerComponent.vue';
             <RouterLink class="link" to="/about">Suporte</RouterLink>
             <span>•</span>
             <RouterLink class="link" to="/contact">Contato</RouterLink>
-        </div class="divisoria">
-        <div style="display: inline-flex;align-items: center;">
+        </div>
+        <div style="display: inline-flex;align-items: center; user-select: none">
             <span>© 2024</span>
             <span>
                 <img style="height: 32px;" class="logo" src="/icons/logo-grande.png">
@@ -32,9 +30,7 @@ import headerComponent from './headerComponent.vue';
         color: white;
         text-align: center;
         padding: 10px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
+        width: calc(100% - 20px);
         color: black;
         text-decoration: none;
         font-family: 'Inter', sans-serif;
@@ -43,6 +39,7 @@ import headerComponent from './headerComponent.vue';
         width: 35px;
         height: 35px;
         margin: 10px;
+        user-select: none;
     }
     .divisoria {
         margin: 6px 0px;
