@@ -26,7 +26,6 @@ main {
     z-index: 1;
     height: 100vh;
     position: relative;
-    padding-top: 10px;
 }
 
 h1 {
@@ -51,14 +50,14 @@ form {
     margin: 32px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
     align-items: center;
 }
 
 input {
     padding: 12px;
     border-radius: 12px;
-    border: 1px solid #848484;
+    border: 2px solid #848484b1;
     width: 300px;
 }
 
