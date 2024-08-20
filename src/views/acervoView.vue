@@ -1,34 +1,34 @@
 <script setup>
-import headerComponent from './headerComponent.vue';
-import footerComponent from './footerComponent.vue';
-import carroselComponent from './carroselComponent.vue';
+import headerComponent from '@components/headerComponent.vue'
+import footerComponent from '@components/footerComponent.vue'
+import carroselComponent from '@components/carroselComponent.vue'
 
 const generos = [
     {
         nome: 'Ação',
         itens: [
             {
-                to: '/livro/1',
+                to: 'acervo/livro/1',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/2',
+                to: 'acervo/livro/2',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/3',
+                to: 'acervo/livro/3',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/4',
+                to: 'acervo/livro/4',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/5',
+                to: 'acervo/livro/5',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/6',
+                to: 'acervo/livro/6',
                 capa: '/imagens/livro-capa.png'
             }
         ]
@@ -37,27 +37,27 @@ const generos = [
         nome: 'Aventura',
         itens: [
             {
-                to: '/livro/7',
+                to: 'acervo/livro/7',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/8',
+                to: 'acervo/livro/8',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/9',
+                to: 'acervo/livro/9',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/10',
+                to: 'acervo/livro/10',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/11',
+                to: 'acervo/livro/11',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/12',
+                to: 'acervo/livro/12',
                 capa: '/imagens/livro-capa.png'
             }
         ]
@@ -66,27 +66,27 @@ const generos = [
         nome: 'Romance',
         itens: [
             {
-                to: '/livro/13',
+                to: 'acervo/livro/13',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/14',
+                to: 'acervo/livro/14',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/15',
+                to: 'acervo/livro/15',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/16',
+                to: 'acervo/livro/16',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/17',
+                to: 'acervo/livro/17',
                 capa: '/imagens/livro-capa.png'
             },
             {
-                to: '/livro/18',
+                to: 'acervo/livro/18',
                 capa: '/imagens/livro-capa.png'
             }
         ]
@@ -101,8 +101,8 @@ const generos = [
         </section>
         <section class="livros">
             <span class="search">
-                <input type="text" placeholder="Pesquise um livro...">
-                <img src="/icons/search.png">
+                <input type="text" placeholder="Pesquise um livro..." />
+                <img src="/icons/search.png" />
             </span>
             <carroselComponent v-for="a in generos" :key="a" :items="a.itens" :title="a.nome" />
         </section>
@@ -122,7 +122,7 @@ main {
     align-items: center;
     width: calc(100% - 40px);
     padding: 20px;
-    background-color: #89B7CC;
+    background-color: #89b7cc;
 }
 
 .title h1 {

@@ -1,20 +1,21 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-
+import { RouterLink } from 'vue-router'
 </script>
 <template>
-    <img class="background" src="/imagens/background.png">
+    <img class="background" src="/imagens/background.png" />
     <main>
         <section class="logo">
-            <span><RouterLink to="/">Voltar a pagina inicial</RouterLink></span>
-            <img src="/icons/logo-pequena.png">
+            <span>
+                <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+            </span>
+            <img src="/icons/logo-pequena.png" />
             <h1>Fazer Login</h1>
         </section>
 
         <section class="login">
             <form>
-                <input type="text" placeholder="Email">
-                <input type="password" placeholder="Senha">
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Senha" />
                 <button>Login</button>
             </form>
             <span>Não possui conta? <RouterLink to="/cadastro">Cadastrar</RouterLink></span>
@@ -40,6 +41,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding-top: 10px;
 }
 
 .login {
@@ -65,7 +67,7 @@ button {
     padding: 15px 40px;
     border-radius: 15px;
     border: none;
-    background-color: #5E8194;
+    background-color: #5e8194;
     color: white;
     font-family: 'Kumbh Sans', sans-serif;
     font-weight: 700;
@@ -77,7 +79,7 @@ button:hover {
 }
 
 button:active {
-    background-color: #4A5F6A;
+    background-color: #4a5f6a;
 }
 
 .background {
@@ -96,7 +98,7 @@ span {
 }
 
 span a {
-    color: #5E8194;
+    color: #5e8194;
     text-decoration: none;
 }
 </style>

@@ -1,28 +1,30 @@
 <script setup>
-import headerComponent from './headerComponent.vue';
-import footerComponent from './footerComponent.vue';
-import { RouterLink } from 'vue-router';
-
+import headerComponent from '@components/headerComponent.vue'
+import footerComponent from '@components/footerComponent.vue'
+import { RouterLink } from 'vue-router'
 </script>
 <template>
     <headerComponent activeButton="emprestimo" />
     <main>
-        <span><RouterLink to="/">Voltar a pagina inicial</RouterLink></span>
+        <span>
+            <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+        </span>
         <section class="title">
             <h1>Sede - Amélie Nothomb</h1>
         </section>
         <section class="livro">
-            <img src="/imagens/livro-capa.png">
+            <img src="/imagens/livro-capa.png" />
             <div class="livro-info">
                 <h2>Autor: Amélie Nothomb</h2>
                 <h2>Gênero: X</h2>
                 <h2>Classificação: Juvenil</h2>
-                <h2>Sinopse: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, erat in sodales
-                    euismod, ex dui mattis arcu, non sagittis felis elit vitae ipsum. Nam rhoncus sagittis augue.</h2>
+                <h2>
+                    Sinopse: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, erat
+                    in sodales euismod, ex dui mattis arcu, non sagittis felis elit vitae ipsum. Nam rhoncus
+                    sagittis augue.
+                </h2>
                 <div class="btn-emprestimo">
-                    <button class="btn">
-                        Emprestar
-                    </button>
+                    <button class="btn">Emprestar</button>
                 </div>
             </div>
         </section>
@@ -67,20 +69,22 @@ main {
 .btn {
     font-family: 'Kumbh Sans', sans-serif;
     padding: 20px 25px;
-    background-color: #89B7CC;
+    background-color: #89b7cc;
     border-radius: 20px;
     color: black;
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
-    border: none;   
+    border: none;
 }
+
 .btn:hover {
     transform: scale(1.1);
     cursor: pointer;
 }
+
 .btn:active {
-    background-color: #5E8194;
+    background-color: #5e8194;
 }
 
 .btn-emprestimo {
@@ -97,7 +101,7 @@ span {
 }
 
 span a {
-    color: #5E8194;
+    color: #5e8194;
     text-decoration: none;
 }
 </style>

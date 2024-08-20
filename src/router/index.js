@@ -6,32 +6,37 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../components/homeComponent.vue')
+      component: () => import('../views/homeView.vue')
     },
     {
       path: '/acervo',
       name: 'acervo',
-      component: () => import('../components/acervoComponent.vue')
+      component: () => import('../views/acervoView.vue')
     },
     {
-      path: '/livro/:id',
+      path: '/acervo/livro/:id',
       name: 'livro',
-      component: () => import('../components/acervoSingleComponent.vue')
+      component: () => import('../views/acervoSingleView.vue')
     },
     {
       path: '/seuslivros',
       name: 'seuslivros',
-      component: () => import('../components/seusLivrosComponent.vue')
+      component: () => import('../views/seusLivrosView.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../components/loginComponent.vue')
+      component: () => import('../views/loginView.vue')
     },
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: () => import('../components/cadastroComponent.vue')
+      component: () => import('../views/cadastroView.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/notFoundView.vue')
     }
   ]
 })

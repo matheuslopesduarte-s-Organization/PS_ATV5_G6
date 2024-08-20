@@ -1,44 +1,44 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   title: String,
   items: Array
-});
+})
 
-const items = ref(props.items);
-const pagiAtual = ref(0);
-const porPagi = 3;
+const items = ref(props.items)
+const pagiAtual = ref(0)
+const porPagi = 3
 
 const paginas = computed(() => {
-  return Math.ceil(items.value.length / porPagi);
-});
+  return Math.ceil(items.value.length / porPagi)
+})
 
 const trackStyle = computed(() => {
   return {
     transform: `translateX(-${pagiAtual.value * (106 / porPagi)}%)`
-  };
-});
+  }
+})
 
 function voltPagi() {
   if (pagiAtual.value > 0) {
-    pagiAtual.value--;
-    pagiAtual.value--;
-    pagiAtual.value--;
+    pagiAtual.value--
+    pagiAtual.value--
+    pagiAtual.value--
   }
-};
+}
 
 function proxPagi() {
   if (pagiAtual.value < items.value.length - porPagi) {
-    pagiAtual.value++;
-    pagiAtual.value++;
-    pagiAtual.value++;
+    pagiAtual.value++
+    pagiAtual.value++
+    pagiAtual.value++
   }
-};
+}
 
 function pPagi(index) {
-  pagiAtual.value = index * porPagi;
-};
+  pagiAtual.value = index * porPagi
+}
 </script>
 
 <template>
@@ -46,22 +46,23 @@ function pPagi(index) {
     <h1>{{ props.title }}</h1>
   </section>
   <section class="livros">
-    <button :class="(pagiAtual <= 0) ? 'button-left hide' : 'button-left'" @click="voltPagi"><img
-      src="/icons/seta.png"></button>
+    <button :class="pagiAtual <= 0 ? 'button-left hide' : 'button-left'" @click="voltPagi">
+      <img src="/icons/seta.png" />
+    </button>
     <div class="itens">
       <div class="carousel-track" :style="trackStyle">
         <RouterLink v-for="(item, index) in items" :to="item.to" :key="index" class="livro">
-          <img :src="item.capa">
+          <img :src="item.capa" />
         </RouterLink>
       </div>
     </div>
-    <button :class="(pagiAtual >= items.length - porPagi) ? 'button-right hide' : 'button-right'" @click="proxPagi"><img
-        src="/icons/seta.png"></button>
+    <button :class="pagiAtual >= items.length - porPagi ? 'button-right hide' : 'button-right'" @click="proxPagi">
+      <img src="/icons/seta.png" />
+    </button>
   </section>
   <section class="nav">
     <span v-for="pagina in paginas" :key="pagina"
-      :class="(Math.floor(pagiAtual / porPagi) === pagina - 1) ? 'paginas active' : 'paginas'"
-      @click="pPagi(pagina - 1)">
+      :class="Math.floor(pagiAtual / porPagi) === pagina - 1 ? 'paginas active' : 'paginas'" @click="pPagi(pagina - 1)">
       {{ pagina }}</span>
   </section>
 </template>
@@ -127,11 +128,11 @@ function pPagi(index) {
 .button-right {
   margin-left: 15px;
 }
+
 .button-left {
   transform: rotate(180deg);
   margin-right: 15px;
 }
-
 
 .button-left.hide,
 .button-right.hide {
