@@ -1,6 +1,7 @@
 <script setup>
 
 
+const varA = '<img style="height: 50px; width: 50px; object-fit: cover; border-radius: 50%;" src="/imagens/livros.png">';
 
 </script>
 <template>
@@ -9,7 +10,18 @@
         <img src="/icons/search.png" />
     </span>
     <section class="list">
-        
+        <h2>Usuários</h2>
+        <li>
+            <ul>
+                <div>
+                    <h3>Item</h3>
+                    <p>Desc</p>
+                </div>
+                <div v-html="varA"></div>
+            </ul>
+            <ul></ul>
+            <ul></ul>
+        </li>
     </section>
 </template>
 <style scoped>
@@ -34,7 +46,14 @@
 }
 
 .list {
-    
+    box-shadow: 1px 1px 10px 1px #0000001A;
+    border-radius: 15px;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.list h2 {
+    padding: 10px 150px;
 }
 
 </style>
