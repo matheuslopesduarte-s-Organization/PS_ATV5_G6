@@ -1,11 +1,11 @@
 <script setup>
-import headerComponent from '@components/headerComponent.vue'
+import headerComponent from '@components/adminHeaderComponent.vue'
 import footerComponent from '@components/footerComponent.vue'
 import listComponent from '@components/listComponent.vue'
 
 </script>
 <template>
-    <headerComponent />
+    <headerComponent activeButton="usuarios" />
     <main>
         <listComponent />
     </main>
