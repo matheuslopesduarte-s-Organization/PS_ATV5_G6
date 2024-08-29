@@ -40,15 +40,13 @@ document.addEventListener('scroll', () => {
 <template>
     <header :style="background">
         <span class="itens">
-            <RouterLink to="/"><img style="height: 60px" class="logo" src="/icons/logo-pequena.png" /></RouterLink>
-            <RouterLink :class="activeButton == 'emprestimo' ? 'active link' : 'link'" to="/acervo">Fazer empréstimo
+            <RouterLink :class="activeButton == 'usuarios' ? 'active link' : 'link'" to="/admin/usuarios">Usuários
             </RouterLink>
-            <RouterLink :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link" to="/seuslivros">
-                Seus Livros
-            </RouterLink>
+            <RouterLink :class="activeButton == 'acervo' ? 'active link' : 'link'" to="/admin/acervo">Acervo</RouterLink>
+            <RouterLink :class="activeButton == 'adicionar_livro' ? 'active link' : 'link'" class="link" to="/admin/acervo/adicionar">Adicionar livro</RouterLink>
         </span>
         <span class="itens">
-            <RouterLink to="/admin/usuarios/">Admin</RouterLink>
+            <RouterLink to="/">Voltar</RouterLink>
             <RouterLink :class="activeButton == 'login' ? 'hide login' : 'login'" to="/login">Login</RouterLink>
             <RouterLink :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'" to="/cadastro">Cadastrar
             </RouterLink>
@@ -89,10 +87,8 @@ header {
 .itens {
     display: flex;
     align-items: center;
-}
-
-.itens * {
-    margin: 0 15px;
+    gap: 45px;
+    margin-left: 15px;
 }
 
 .logo {

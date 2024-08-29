@@ -10,55 +10,55 @@ const itens = [
     id: 1,
     titulo: 'Livro 1',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/1'
+    to: '/acervo/livro/1'
   },
   {
     id: 2,
     titulo: 'Livro 2',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/2'
+    to: '/acervo/livro/2'
   },
   {
     id: 3,
     titulo: 'Livro 3',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/3'
+    to: '/acervo/livro/3'
   },
   {
     id: 4,
     titulo: 'Livro 4',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/4'
+    to: '/acervo/livro/4'
   },
   {
     id: 5,
     titulo: 'Livro 5',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/5'
+    to: '/acervo/livro/5'
   },
   {
     id: 6,
     titulo: 'Livro 6',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/6'
+    to: '/acervo/livro/6'
   },
   {
     id: 7,
     titulo: 'Livro 7',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/7'
+    to: '/acervo/livro/7'
   },
   {
     id: 8,
     titulo: 'Livro 8',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/8'
+    to: '/acervo/livro/8'
   },
   {
     id: 9,
     titulo: 'Livro 9',
     capa: '/imagens/livro-capa.png',
-    to: '/acervo/detalhes/9'
+    to: '/acervo/livro/9'
   }
 ]
 </script>

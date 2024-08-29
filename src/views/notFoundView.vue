@@ -48,6 +48,7 @@ h1 {
     font-weight: 700;
     font-size: 20px;
     text-decoration: none;
+    transition: transform 0.05s ease-in-out;
 }
 
 .link:hover {
