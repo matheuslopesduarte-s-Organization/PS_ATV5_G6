@@ -13,18 +13,31 @@ import { RouterLink } from 'vue-router'
             <h1>Sede - Amélie Nothomb</h1>
         </section>
         <section class="livro">
-            <img src="/imagens/livro-capa.png" />
+            <img class="img" src="/imagens/livro-capa.png" />
             <div class="livro-info">
-                <h2>Autor: Amélie Nothomb</h2>
-                <h2>Gênero: X</h2>
-                <h2>Classificação: Juvenil</h2>
-                <h2>
-                    Sinopse: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, erat
-                    in sodales euismod, ex dui mattis arcu, non sagittis felis elit vitae ipsum. Nam rhoncus
-                    sagittis augue.
-                </h2>
+                <div class="flex">
+                <label for="autor"><img src="/icons/edit.png">Autor:</label>
+                <input id="autor" type="text" value="Amélie Nothomb">
+                </div>
+                <div class="flex">
+                <label for="genero"><img src="/icons/edit.png">Genero:</label>
+                <input id="genero" type="text" value="X">
+                </div>
+                <div class="flex">
+                <label for="classificacao"><img src="/icons/edit.png">Classificacao:</label>
+                <select id="classificacao" type="text" value="juvenil">
+                    <option value="juvenil">Juvenil</option>
+                    <option value="adulto">Adulto</option>
+                    <option value="infantil">Infantil</option>
+                </select>
+                
+            </div>
+            <div class="flex">
+                <label for="sinopse"><img src="/icons/edit.png">Sinopse:</label>
+                <textarea id="sinopse" type="text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque  ultricies, erat in sodales euismod, ex dui mattis arcu, non sagittis  felis elit vitae ipsum. Nam rhoncus sagittis augue.</textarea>
+                </div>
                 <div class="btn-emprestimo">
-                    <button class="btn">Emprestar</button>
+                    <button class="btn">Salvar</button>
                 </div>
             </div>
         </section>
@@ -103,5 +116,47 @@ span {
 span a {
     color: #5e8194;
     text-decoration: none;
+}
+input {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    background-color: #f0f0f0;
+    padding: 10px;
+    
+    flex: 1;
+}
+.flex {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
+.flex img {
+    width: 20px;
+}
+
+textarea {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    width: 30vw;
+    background-color: #f0f0f0;
+    padding: 10px;
+    resize: vertical;
+    flex: 1;
+}
+
+.img {
+    width: 300px;
+    height: 450px;
 }
 </style>

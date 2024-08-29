@@ -48,6 +48,7 @@ document.addEventListener('scroll', () => {
             </RouterLink>
         </span>
         <span class="itens">
+            <RouterLink to="/admin/usuarios/">Admin</RouterLink>
             <RouterLink :class="activeButton == 'login' ? 'hide login' : 'login'" to="/login">Login</RouterLink>
             <RouterLink :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'" to="/cadastro">Cadastrar
             </RouterLink>

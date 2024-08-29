@@ -1,21 +1,25 @@
 <script setup>
 import headerComponent from '@components/adminHeaderComponent.vue'
 import footerComponent from '@components/footerComponent.vue'
-import listComponent from '@components/listComponent.vue'
+import tbComponent from '@/components/tbComponent.vue';
 
-const items = [
-    {
-        title: 'Livro1',
-        to: '/admin/acervo/livro/1',
-        component: '<div @click style="display:flex;gap:15px"><a href="/admin/livro/1"><img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;" src="/icons/edit.png"></a><a href="/admin/livro/1?delete"><img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;" src="/icons/delete.png"></a></div>'
-    },
+const titles = ['Data', 'Estoque', 'Empréstimos'];
+const itens = [
+    [
+        '01/01/2021',
+        '10',
+        '5'
+    ]
 ]
-
 </script>
 <template>
     <headerComponent activeButton="acervo" />
     <main>
-        <listComponent :itens="items" :title="'Livros'" />
+        <RouterLink to="/admin/acervo">Voltar</RouterLink>
+        <div>
+        <h2>Nome do livro</h2>
+        <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />
+        </div>
     </main>
     <footerComponent />
 </template>
@@ -25,6 +29,19 @@ main {
     padding-top: 84px;
     flex-direction: column;
     align-items: center;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+    position: relative;
+    right: 30px;
+}
+
+a {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    margin-top: 20px;
 }
 </style>
 <style>
