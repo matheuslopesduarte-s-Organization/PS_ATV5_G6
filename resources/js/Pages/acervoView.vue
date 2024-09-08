@@ -2,7 +2,7 @@
 import headerComponent from '@/components/headerComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
 import carroselComponent from '@/components/carroselComponent.vue'
-
+import { Head } from '@inertiajs/vue3';
 const generos = [
     {
         nome: 'Ação',
@@ -94,6 +94,7 @@ const generos = [
 ]
 </script>
 <template>
+    <Head title="Acervo" />
     <headerComponent activeButton="emprestimo" />
     <main>
         <section class="title">

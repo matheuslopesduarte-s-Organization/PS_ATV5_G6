@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
+import { Link, Head  } from '@inertiajs/vue3'
 
 import { ref } from 'vue'
 
@@ -10,13 +10,15 @@ function trigger(opcao) {
 }
 </script>
 <template>
+    <Head title="Cadastrar" />
+        
     <img class="background" src="/imagens/background.png" />
     <main>
         <section class="logo">
             <span>
                 <Link :href="route('home')">Voltar a pagina inicial</Link>
             </span>
-            <img src="/icons/logo-pequena.png" />
+            <Link :href="route('home')"><img src="/icons/logo-pequena.png" /></Link>
             <h1>Cadastrar</h1>
         </section>
 
@@ -61,6 +63,7 @@ main {
     z-index: 1;
     height: 100vh;
     position: relative;
+    overflow: auto;
 }
 
 h1 {
@@ -130,6 +133,7 @@ button:active {
     object-fit: cover;
     transform: rotate(90deg) translate(-7%, -10%);
     z-index: 0;
+    height: 60%;
 }
 
 span {

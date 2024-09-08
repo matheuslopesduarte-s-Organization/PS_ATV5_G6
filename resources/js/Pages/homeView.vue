@@ -1,9 +1,11 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import footerComponent from '@/components/footerComponent.vue'
 import headerComponent from '@/components/headerComponent.vue'
 </script>
 <template>
+    <Head title="Home" />
+
     <headerComponent :isTransparent="true" />
     <main>
         <section class="content">

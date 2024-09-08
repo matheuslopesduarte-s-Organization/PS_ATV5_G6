@@ -2,19 +2,20 @@
 import headerComponent from '@/components/adminHeaderComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
 import tbComponent from '@/components/tbComponent.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 const titles = ['Livro', 'Empréstimo', 'devolução', 'Penalizações'];
 const itens = [
     [
         'Livro 1',
         '01/01/2021',
         '01/02/2021',
-        'R$ 10,00'
+        '30 dias'
     ]
 ]
 
 </script>
 <template>
+    <Head title="(Admin) - User 1" />
     <headerComponent activeButton="usuarios" />
     <main>
         <Link :href="route('admin.usuarios')">Voltar</Link>

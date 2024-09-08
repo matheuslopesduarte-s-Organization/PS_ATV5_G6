@@ -1,9 +1,10 @@
 <script setup>
 import headerComponent from '@/components/adminHeaderComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
-import { Link } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 </script>
 <template>
+    <Head title="(Admin) - Editar Livro" />
     <headerComponent activeButton="emprestimo" />
     <main>
         <span>

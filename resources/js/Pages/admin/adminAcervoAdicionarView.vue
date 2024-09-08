@@ -1,9 +1,10 @@
 <script setup>
 import headerComponent from '@/components/adminHeaderComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
-
+import { Head } from '@inertiajs/vue3';
 </script>
 <template>
+    <Head title="(Admin) Adicionar livro" />
     <headerComponent activeButton="adicionar_livro" />
     <main>
         <section class="adicionar">
