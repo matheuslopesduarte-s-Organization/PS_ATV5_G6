@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { Link } from '@inertiajs/vue3'
 
 import { ref } from 'vue'
 
@@ -14,7 +14,7 @@ function trigger(opcao) {
     <main>
         <section class="logo">
             <span>
-                <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+                <Link :href="route('home')">Voltar a pagina inicial</Link>
             </span>
             <img src="/icons/logo-pequena.png" />
             <h1>Cadastrar</h1>
@@ -52,7 +52,7 @@ function trigger(opcao) {
                 </div>
                 <button type="submit">Cadastrar</button>
             </form>
-            <span>Já possui conta? <RouterLink to="/login">Fazer Login</RouterLink></span>
+            <span>Já possui conta? <Link :href="route('login')">Fazer Login</Link></span>
         </section>
     </main>
 </template>

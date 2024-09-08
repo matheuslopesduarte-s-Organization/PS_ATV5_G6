@@ -1,8 +1,8 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
 import tbComponent from '@/components/tbComponent.vue';
-
+import { Link } from '@inertiajs/vue3';
 const titles = ['Livro', 'Empréstimo', 'devolução', 'Penalizações'];
 const itens = [
     [
@@ -17,7 +17,7 @@ const itens = [
 <template>
     <headerComponent activeButton="usuarios" />
     <main>
-        <RouterLink to="/admin/usuarios">Voltar</RouterLink>
+        <Link :href="route('admin.usuarios')">Voltar</Link>
         <div>
         <h2>User 1<img src="/icons/user.png"></h2>
         <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />

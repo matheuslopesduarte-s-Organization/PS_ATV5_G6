@@ -1,7 +1,7 @@
 <script setup>
-import headerComponent from '@components/headerComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import carroselComponent from '@components/carroselComponent.vue'
+import headerComponent from '@/components/headerComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import carroselComponent from '@/components/carroselComponent.vue'
 
 const title = 'Seus Livros'
 

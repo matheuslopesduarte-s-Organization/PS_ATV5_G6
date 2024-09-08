@@ -1,7 +1,7 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import listComponent from '@components/listComponent.vue'
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import listComponent from '@/components/listComponent.vue'
 
 const items = [
     {

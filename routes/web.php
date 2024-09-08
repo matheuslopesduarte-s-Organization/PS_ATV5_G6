@@ -6,22 +6,51 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+    return Inertia::render('homeView');
+})->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/acervo', function () {
+    return Inertia::render('acervoView');
+})->name('acervo');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/seusLivros', function () {
+    return Inertia::render('seusLivrosView');
+})->name('seusLivros');
 
-require __DIR__.'/auth.php';
+Route::get('/cadastrar', function () {
+    return Inertia::render('cadastroView');
+})->name('cadastrar');
+
+Route::get('/login', function () {
+    return Inertia::render('loginView');
+})->name('login');
+
+Route::get('/acervo/livro/{id}', function () {
+    return Inertia::render('acervoSingleView');
+})->name('acervo.single');
+
+
+Route::get('/admin/usuarios', function () {
+    return Inertia::render('admin/adminUsuariosView');
+})->name('admin.usuarios');
+
+Route::get('/admin/usuario/{id}', function () {
+    return Inertia::render('admin/adminUsuarioView');
+})->name('admin.usuario');
+
+Route::get('/admin/acervo', function () {
+    return Inertia::render('admin/adminAcervoView');
+})->name('admin.acervo');
+
+Route::get('/admin/acervo/adicionar', function () {
+    return Inertia::render('admin/adminAcervoAdicionarView');
+})->name('admin.acervo.adicionar');
+
+Route::get('/admin/acervo/editar/{id}', function () {
+    return Inertia::render('admin/adminLivroView');
+})->name('acervo.acervo.editar');
+
+Route::get('/admin/acervo/livro/{id}', function () {
+    return Inertia::render('admin/adminAcervoSingle');
+})->name('admin.livro');
+// require __DIR__.'/auth.php';

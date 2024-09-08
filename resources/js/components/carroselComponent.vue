@@ -1,4 +1,5 @@
 <script setup>
+import { Link } from "@inertiajs/vue3"
 import { ref, computed } from 'vue'
 
 const props = defineProps({
@@ -51,9 +52,9 @@ function pPagi(index) {
     </button>
     <div class="itens">
       <div class="carousel-track" :style="trackStyle">
-        <RouterLink v-for="(item, index) in items" :to="item.to" :key="index" class="livro">
+        <Link v-for="(item, index) in items" :href="item.to" :key="index" class="livro">
           <img :src="item.capa" />
-        </RouterLink>
+        </Link>
       </div>
     </div>
     <button :class="pagiAtual >= items.length - porPagi ? 'button-right hide' : 'button-right'" @click="proxPagi">

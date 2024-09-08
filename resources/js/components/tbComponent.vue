@@ -10,7 +10,6 @@ const props = defineProps({
         default: () => [],
     }
 })
-console.log(props.itens)
 const itens = props.itens;
 </script>
 <template>

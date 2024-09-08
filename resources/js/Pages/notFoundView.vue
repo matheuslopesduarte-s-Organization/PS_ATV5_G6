@@ -1,14 +1,14 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import footerComponent from '@components/footerComponent.vue'
-import headerComponent from '@components/headerComponent.vue'
+import { Link } from '@inertiajs/vue3';
+import footerComponent from '@/components/footerComponent.vue'
+import headerComponent from '@/components/headerComponent.vue'
 </script>
 <template>
     <headerComponent :isTransparent="true" />
     <main>
         <section class="content">
             <h1>Pagina não encontrada</h1>
-            <RouterLink class="link" to="/">Voltar a pagina inicial</RouterLink>
+            <Link class="link" :href="route('home')">Voltar a pagina inicial</Link>
         </section>
     </main>
     <footerComponent />

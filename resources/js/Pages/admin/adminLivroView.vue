@@ -1,13 +1,13 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import { RouterLink } from 'vue-router'
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import { Link } from '@inertiajs/vue3';
 </script>
 <template>
     <headerComponent activeButton="emprestimo" />
     <main>
         <span>
-            <RouterLink to="/admin/acervo">Voltar a lista</RouterLink>
+            <Link :href="route('admin.acervo')">Voltar a lista</Link>
         </span>
         <section class="title">
             <h1>Sede - Amélie Nothomb</h1>
