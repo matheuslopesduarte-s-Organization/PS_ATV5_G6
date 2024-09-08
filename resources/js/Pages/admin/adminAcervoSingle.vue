@@ -1,7 +1,8 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
 import tbComponent from '@/components/tbComponent.vue';
+import { Link, Head } from '@inertiajs/vue3';
 
 const titles = ['Data', 'Estoque', 'Empréstimos'];
 const itens = [
@@ -13,9 +14,10 @@ const itens = [
 ]
 </script>
 <template>
+    <Head title="(Admin) - Nome do livro" />
     <headerComponent activeButton="acervo" />
     <main>
-        <RouterLink to="/admin/acervo">Voltar</RouterLink>
+        <Link :href="route('admin.acervo')">Voltar</Link>
         <div>
         <h2>Nome do livro</h2>
         <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />

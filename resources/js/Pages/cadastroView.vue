@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { Link, Head  } from '@inertiajs/vue3'
 
 import { ref } from 'vue'
 
@@ -10,13 +10,15 @@ function trigger(opcao) {
 }
 </script>
 <template>
+    <Head title="Cadastrar" />
+        
     <img class="background" src="/imagens/background.png" />
     <main>
         <section class="logo">
             <span>
-                <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+                <Link :href="route('home')">Voltar a pagina inicial</Link>
             </span>
-            <img src="/icons/logo-pequena.png" />
+            <Link :href="route('home')"><img src="/icons/logo-pequena.png" /></Link>
             <h1>Cadastrar</h1>
         </section>
 
@@ -52,7 +54,7 @@ function trigger(opcao) {
                 </div>
                 <button type="submit">Cadastrar</button>
             </form>
-            <span>Já possui conta? <RouterLink to="/login">Fazer Login</RouterLink></span>
+            <span>Já possui conta? <Link :href="route('login')">Fazer Login</Link></span>
         </section>
     </main>
 </template>
@@ -61,6 +63,7 @@ main {
     z-index: 1;
     height: 100vh;
     position: relative;
+    overflow: auto;
 }
 
 h1 {
@@ -130,6 +133,7 @@ button:active {
     object-fit: cover;
     transform: rotate(90deg) translate(-7%, -10%);
     z-index: 0;
+    height: 60%;
 }
 
 span {

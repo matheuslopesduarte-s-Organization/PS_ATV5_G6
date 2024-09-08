@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -40,18 +40,18 @@ document.addEventListener('scroll', () => {
 <template>
     <header :style="background">
         <span class="itens">
-            <RouterLink to="/"><img style="height: 60px" class="logo" src="/icons/logo-pequena.png" /></RouterLink>
-            <RouterLink :class="activeButton == 'emprestimo' ? 'active link' : 'link'" to="/acervo">Fazer empréstimo
-            </RouterLink>
-            <RouterLink :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link" to="/seuslivros">
+            <Link :href="route('home')"><img style="height: 60px" class="logo" src="/icons/logo-pequena.png" /></Link>
+            <Link :class="activeButton == 'emprestimo' ? 'active link' : 'link'" :href="route('acervo')">Fazer empréstimo
+            </Link>
+            <Link :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link" :href="route('seusLivros')">
                 Seus Livros
-            </RouterLink>
+            </Link>
         </span>
         <span class="itens">
-            <RouterLink to="/admin/usuarios/">Admin</RouterLink>
-            <RouterLink :class="activeButton == 'login' ? 'hide login' : 'login'" to="/login">Login</RouterLink>
-            <RouterLink :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'" to="/cadastro">Cadastrar
-            </RouterLink>
+            <Link :href="route('admin.usuarios')">Admin</Link>
+            <Link :href="route('login')" :class="activeButton == 'login' ? 'hide login' : 'login'">Login</Link>
+            <Link :href="route('cadastrar')" :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">Cadastrar
+            </Link>
         </span>
     </header>
 </template>

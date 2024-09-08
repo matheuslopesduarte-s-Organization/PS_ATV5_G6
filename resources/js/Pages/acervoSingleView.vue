@@ -1,13 +1,15 @@
 <script setup>
-import headerComponent from '@components/headerComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import { RouterLink } from 'vue-router'
+import headerComponent from '@/components/headerComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import { Link, Head } from '@inertiajs/vue3'
 </script>
 <template>
+    <Head title="Sede - Amélie Nothomb" />
+
     <headerComponent activeButton="emprestimo" />
     <main>
         <span>
-            <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+            <Link :href="route('home')">Voltar a pagina inicial</Link>
         </span>
         <section class="title">
             <h1>Sede - Amélie Nothomb</h1>

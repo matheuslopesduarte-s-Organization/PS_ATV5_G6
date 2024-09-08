@@ -1,4 +1,5 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     title: {
@@ -22,13 +23,13 @@ const props = defineProps({
         <h2>{{ props.title }}</h2>
         <li>
             <ul v-for="item in itens" :key="item.id">
-                <a :href="item.to">
+                <Link :href="item.to">
                 <div>
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.desc }}</p>
                 </div>
                 <div v-html="item.component"></div>
-                </a>
+            </Link>
             </ul>
         </li>
         <p v-if="itens.length < 1">Nenhum item encontrado</p>

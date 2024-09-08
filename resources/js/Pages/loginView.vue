@@ -1,14 +1,17 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { Link, Head } from '@inertiajs/vue3'
+
 </script>
 <template>
+    <Head title="Fazer Login" />
+
     <img class="background" src="/imagens/background.png" />
     <main>
         <section class="logo">
             <span>
-                <RouterLink to="/">Voltar a pagina inicial</RouterLink>
+                <Link :href="route('home')">Voltar a pagina inicial</Link>
             </span>
-            <img src="/icons/logo-pequena.png" />
+            <Link :href="route('home')"><img src="/icons/logo-pequena.png" /></Link>
             <h1>Fazer Login</h1>
         </section>
 
@@ -18,7 +21,7 @@ import { RouterLink } from 'vue-router'
                 <input type="password" placeholder="Senha" />
                 <button>Login</button>
             </form>
-            <span>Não possui conta? <RouterLink to="/cadastro">Cadastrar</RouterLink></span>
+            <span>Não possui conta? <Link :href="route('cadastrar')">Cadastrar</Link></span>
         </section>
     </main>
 </template>
@@ -27,6 +30,7 @@ main {
     z-index: 1;
     height: 100vh;
     position: relative;
+    overflow: auto;
 }
 
 h1 {
@@ -89,6 +93,7 @@ button:active {
     object-fit: cover;
     transform: rotate(90deg) translate(-7%, -10%);
     z-index: 0;
+    height: 60%;
 }
 
 span {

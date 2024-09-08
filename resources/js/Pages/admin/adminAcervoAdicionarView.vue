@@ -1,10 +1,10 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import listComponent from '@components/listComponent.vue'
-
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import { Head } from '@inertiajs/vue3';
 </script>
 <template>
+    <Head title="(Admin) Adicionar livro" />
     <headerComponent activeButton="adicionar_livro" />
     <main>
         <section class="adicionar">
@@ -45,7 +45,7 @@ main {
     box-shadow: 1px 1px 10px 2px #0000001A;
     border-radius: 15px;
     font-family: 'Inter', sans-serif;
-    width: 50vw;
+    padding: 35px;
     margin-bottom: 50px;
     overflow: hidden;
     display: flex;

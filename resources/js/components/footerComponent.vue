@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -10,11 +10,11 @@ import { RouterLink } from 'vue-router'
             <a><img class="icon" src="/icons/github-logo.png" /></a>
         </div>
         <div class="divisoria">
-            <RouterLink class="link" to="/">Info</RouterLink>
+            <Link :href="route('home')" class="link">Info</Link>
             <span>•</span>
-            <RouterLink class="link" to="/about">Suporte</RouterLink>
+            <Link :href="route('home')" class="link">Suporte</Link>
             <span>•</span>
-            <RouterLink class="link" to="/contact">Contato</RouterLink>
+            <Link :href="route('home')" class="link">Contato</Link>
         </div>
         <div style="display: inline-flex; align-items: center; user-select: none">
             <span>© 2024</span>

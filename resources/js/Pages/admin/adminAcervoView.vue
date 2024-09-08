@@ -1,8 +1,8 @@
 <script setup>
-import headerComponent from '@components/adminHeaderComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import listComponent from '@components/listComponent.vue'
-
+import headerComponent from '@/components/adminHeaderComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import listComponent from '@/components/listComponent.vue'
+import { Head } from '@inertiajs/vue3';
 const items = [
     {
         title: 'Livro1',
@@ -18,6 +18,7 @@ const items = [
 
 </script>
 <template>
+    <Head title="(Admin) - Acervo" />
     <headerComponent activeButton="acervo" />
     <main>
         <listComponent :itens="items" :title="'Livros'" />

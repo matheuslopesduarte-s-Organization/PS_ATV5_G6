@@ -1,7 +1,9 @@
 <script setup>
-import headerComponent from '@components/headerComponent.vue'
-import footerComponent from '@components/footerComponent.vue'
-import carroselComponent from '@components/carroselComponent.vue'
+import { Head } from '@inertiajs/vue3';
+
+import headerComponent from '@/components/headerComponent.vue'
+import footerComponent from '@/components/footerComponent.vue'
+import carroselComponent from '@/components/carroselComponent.vue'
 
 const title = 'Seus Livros'
 
@@ -63,6 +65,8 @@ const itens = [
 ]
 </script>
 <template>
+  <Head title="Seus livros" />
+
   <headerComponent activeButton="seus_livros" />
 
   <main>

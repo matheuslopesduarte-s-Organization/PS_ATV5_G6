@@ -1,14 +1,16 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import footerComponent from '@components/footerComponent.vue'
-import headerComponent from '@components/headerComponent.vue'
+import { Link, Head } from '@inertiajs/vue3';
+import footerComponent from '@/components/footerComponent.vue'
+import headerComponent from '@/components/headerComponent.vue'
 </script>
 <template>
+    <Head title="Home" />
+
     <headerComponent :isTransparent="true" />
     <main>
         <section class="content">
             <h1>Fazer Empréstimo agora</h1>
-            <RouterLink class="link" to="/acervo">Ver livros</RouterLink>
+            <Link :href="route('acervo')" class="link" to="/acervo">Ver livros</Link>
         </section>
         <section class="deco">
             <img src="/imagens/livros.png" />
