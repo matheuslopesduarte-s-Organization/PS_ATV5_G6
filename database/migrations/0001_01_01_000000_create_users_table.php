@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->char('cpf', 11)->primary();
             $table->string('nome', 100);
             $table->string('email', 100)->unique();
             $table->date('data_nascimento');
             $table->char('senha', 64);
             $table->enum('tipo_usuario', ['infantil', 'juvenil', 'adulto', 'admin']);
+            $table->foreignId('responsavel_id')->constrained('usuarios');
             $table->timestamps();
-            $table->foreignId('responsavel_id')->constrained('users')->onDelete('cascade');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -38,7 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };

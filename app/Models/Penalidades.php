@@ -25,7 +25,7 @@ class Penalidades extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'usuario_cpf', 'cpf');
+        return $this->belongsTo(Usuarios::class, 'usuario_cpf', 'cpf');
     }
 
 }
