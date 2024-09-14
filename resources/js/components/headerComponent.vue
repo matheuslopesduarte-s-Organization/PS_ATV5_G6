@@ -48,9 +48,10 @@ document.addEventListener('scroll', () => {
             </Link>
         </span>
         <span class="itens">
-            <Link :href="route('admin.usuarios')">Admin</Link>
-            <Link :href="route('login')" :class="activeButton == 'login' ? 'hide login' : 'login'">Login</Link>
-            <Link :href="route('cadastrar')" :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">Cadastrar
+            <Link v-if="$page.props.auth.user" :href="route('admin.usuarios')">Admin</Link>
+            <Link v-if="$page.props.auth.user" :href="route('logout')">Logout</Link>
+            <Link v-if="!$page.props.auth.user" :href="route('login')" :class="activeButton == 'login' ? 'hide login' : 'login'">Login</Link>
+            <Link v-if="!$page.props.auth.user" :href="route('cadastrar')" :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">Cadastrar
             </Link>
         </span>
     </header>

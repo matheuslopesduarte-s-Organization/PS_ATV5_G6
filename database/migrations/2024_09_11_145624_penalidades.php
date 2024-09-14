@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('penalidades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('emprestimo_id')->constrained('emprestimos')->onDelete('cascade');
-            $table->foreignId('usuario_cpf')->constrained('users')->onDelete('cascade');
             $table->date('data_inicio');
             $table->date('data_final');
+            $table->char('usuario_cpf', length: 11);
             $table->timestamps();
+
+            $table->foreign('usuario_cpf')->references('cpf')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table(table: 'penalidades', callback: function (Blueprint $table) {
+
+            $table->dropForeign(index: ['usuario_cpf']);
+        });
+
+
         Schema::dropIfExists('penalidades');
     }
 };

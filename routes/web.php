@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,17 +19,21 @@ Route::get('/seusLivros', function () {
     return Inertia::render('seusLivrosView');
 })->name('seusLivros');
 
-Route::get('/cadastrar', function () {
-    return Inertia::render('cadastroView');
-})->name('cadastrar');
-
-Route::get('/login', function () {
-    return Inertia::render('loginView');
-})->name('login');
-
 Route::get('/acervo/livro/{id}', function () {
     return Inertia::render('acervoSingleView');
 })->name('acervo.single');
+
+Route::get('/login', [Auth\LoginController::class,'index'])->name('login');
+Route::post('/login', [Auth\LoginController::class,'store'])->name('login');
+Route::any('/logout', [Auth\LoginController::class,'delete'])->name('logout')->middleware('auth');
+
+Route::get('/cadastrar', [Auth\RegisterController::class,'index'])->name('cadastrar');
+Route::post('/cadastrar', [Auth\RegisterController::class,'store'])->name('cadastrar');
+
+
+
+
+
 
 
 Route::get('/admin/usuarios', function () {

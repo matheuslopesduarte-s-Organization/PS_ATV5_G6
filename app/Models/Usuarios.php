@@ -16,7 +16,9 @@ class Usuarios extends Authenticatable
         'nome',
         'email',
         'data_nascimento',
-        'responsavel_id'
+        'responsavel_cpf',
+        'senha',
+        'tipo_usuario'
     ];
 
     protected $hidden = [

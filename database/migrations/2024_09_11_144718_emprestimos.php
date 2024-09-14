@@ -13,13 +13,17 @@ return new class extends Migration
     {
         Schema::create('emprestimos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_cpf')->constrained('users')->onDelete('cascade');
-            $table->foreignId('livro_isbn')->constrained('livros')->onDelete('cascade');
             $table->date('data_emprestimo');
             $table->date('data_devolucao')->nullable();
             $table->enum('status', ['ativo', 'devolvido','atrasado']);
             $table->date('prazo_devolucao')->default(now()->addDays(30));
+            $table->char('usuario_cpf', length: 11);
+            $table->string('livro_isbn', 13);
             $table->timestamps();
+            
+
+            $table->foreign('livro_isbn')->references('isbn')->on('livros')->onDelete('cascade');
+            $table->foreign('usuario_cpf')->references('cpf')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -28,6 +32,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table(table: 'emprestimos', callback: function (Blueprint $table) {
+
+            $table->dropForeign(index: ['livro_isbn']);
+            $table->dropForeign(index: ['usuario_cpf']);
+        });
+
         Schema::dropIfExists('emprestimos');
     }
 };

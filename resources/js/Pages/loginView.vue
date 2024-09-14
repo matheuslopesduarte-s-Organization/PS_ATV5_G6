@@ -1,5 +1,21 @@
 <script setup>
-import { Link, Head } from '@inertiajs/vue3'
+import { Link, Head, useForm } from '@inertiajs/vue3'
+
+const form = useForm({
+    email: '',
+    password: '',
+})
+
+const submit = () => {
+    form.post(route('login'), {
+        onSuccess: () => {
+            form.reset()
+        },
+        onError: () => {
+            form.reset('password')
+        },
+    })
+}
 
 </script>
 <template>
@@ -16,9 +32,15 @@ import { Link, Head } from '@inertiajs/vue3'
         </section>
 
         <section class="login">
-            <form>
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Senha" />
+            <form @submit.prevent="submit">
+                <span class="error-msg" v-if="form.errors.email" role="alert">
+                    {{ form.errors.email }}
+                </span>
+                <input v-model="form.email" type="text" placeholder="Email" />
+                <span class="error-msg" v-if="form.errors.password" role="alert">
+                    {{ form.errors.password }}
+                </span>
+                <input v-model="form.password" type="password" placeholder="Senha" />
                 <button>Login</button>
             </form>
             <span>Não possui conta? <Link :href="route('cadastrar')">Cadastrar</Link></span>
@@ -105,5 +127,11 @@ span {
 span a {
     color: #5e8194;
     text-decoration: none;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
 }
 </style>

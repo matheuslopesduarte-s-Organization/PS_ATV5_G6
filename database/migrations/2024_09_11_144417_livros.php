@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('livros', function (Blueprint $table) {
-            $table->string('isbn', 13)->primary();
-            $table->string('titulo', 255);
-            $table->string('autor', 100);
-            $table->enum('classificacao', ['infantil', 'juvenil', 'adulto']);
-            $table->mediumText('sinopse');
-            $table->mediumText('capa');
-            $table->integer('estoque');
-            $table->foreignId('genero_id')->constrained('generos')->onDelete('cascade');
+        Schema::create(table: 'livros', callback: function (Blueprint $table): void {
+            $table->string(column: 'isbn', length: 13)->primary();
+            $table->string(column: 'titulo', length: 255);
+            $table->string(column: 'autor', length: 100);
+            $table->enum(column: 'classificacao', allowed: ['infantil', 'juvenil', 'adulto']);
+            $table->mediumText(column: 'sinopse');
+            $table->mediumText(column: 'capa');
+            $table->integer(column: 'estoque');
+            $table->foreignId(column: 'genero_id')->constrained(table: 'generos')->onDelete(action: 'cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('livros');
+        Schema::dropIfExists(table: 'livros');
     }
 };

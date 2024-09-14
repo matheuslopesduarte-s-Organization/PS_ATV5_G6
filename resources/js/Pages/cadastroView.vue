@@ -1,17 +1,47 @@
 <script setup>
-import { Link, Head  } from '@inertiajs/vue3'
-
-import { ref } from 'vue'
+import { Link, Head, useForm } from '@inertiajs/vue3'
+import { ref, computed } from 'vue'
 
 const tipoUsuario = ref('aluno')
 
 function trigger(opcao) {
     tipoUsuario.value = opcao
 }
+
+
+
+const form = useForm({
+    nome: '',
+    email: '',
+    cpf: '',
+    cpfResp: '',
+    senha: '',
+    senha_confirmation: '',
+    dataNascimento: '',
+})
+
+form.dataNascimento = computed(() => {
+    return `${form.ano}-${form.mes}-${form.dia}`
+})
+
+const submit = () => {
+    form.post(route('cadastrar'), {
+        onSuccess: () => {
+            form.reset()
+        },
+        onError: () => {
+            form.reset('senha')
+            form.reset('senha_confirmation')
+        },
+    })
+    console.log(form.dataNascimento)
+}
+
 </script>
 <template>
+
     <Head title="Cadastrar" />
-        
+
     <img class="background" src="/imagens/background.png" />
     <main>
         <section class="logo">
@@ -23,7 +53,7 @@ function trigger(opcao) {
         </section>
 
         <section class="cadastrar">
-            <form>
+            <form @submit.prevent="submit">
                 <div class="tipo">
                     <div :class="tipoUsuario == 'aluno' ? 'opcao left active' : 'opcao left'" @click="trigger('aluno')">
                         Aluno
@@ -35,26 +65,44 @@ function trigger(opcao) {
                 </div>
                 <div style="display: flex; gap: 15px">
                     <div style="display: flex; flex-direction: column; gap: 25px">
-                        <input type="text" placeholder="Nome" />
-                        <input type="text" placeholder="Email" />
-                        <input type="text" placeholder="CPF" />
-                        <input v-if="tipoUsuario == 'aluno'" type="text" placeholder="CPF do responsavel" />
+                        <span class="error-msg" v-if="form.errors.nome">
+                            {{ form.errors.nome }}
+                        </span>
+                        <input type="text" placeholder="Nome" v-model="form.nome" />
+                        <span class="error-msg" v-if="form.errors.email">
+                            {{ form.errors.email }}
+                        </span>
+                        <input type="text" placeholder="Email" v-model="form.email" />
+                        <span class="error-msg" v-if="form.errors.cpf">
+                            {{ form.errors.cpf }}
+                        </span>
+                        <input type="text" placeholder="CPF" v-model="form.cpf" />
+                        <span class="error-msg" v-if="form.errors.cpfResp">
+                            {{ form.errors.cpfResp }}
+                        </span>
+                        <input v-if="tipoUsuario == 'aluno'" type="text" placeholder="CPF do responsavel"
+                            v-model="form.cpfResp" />
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 25px">
-                        <input type="password" placeholder="Senha" />
-                        <input type="password" placeholder="Confirmar Senha" />
+                        <input type="password" placeholder="Senha" v-model="form.senha" />
+                        <input type="password" placeholder="Confirmar Senha" v-model="form.senha_confirmation" />
+                        <span class="error-msg" v-if="form.errors.dataNascimento">
+                            {{ form.errors.dataNascimento }}
+                        </span>
                         <span>Data de Nascimento</span>
                         <div class="nascimento">
-                            <input type="number" placeholder="ano" />
-                            <input type="number" placeholder="mes" />
-                            <input type="number" placeholder="dia" />
+                            <input type="number" placeholder="ano" v-model="form.ano" />
+                            <input type="number" placeholder="mes" v-model="form.mes" />
+                            <input type="number" placeholder="dia" v-model="form.dia" />
                         </div>
                     </div>
                 </div>
                 <button type="submit">Cadastrar</button>
             </form>
-            <span>Já possui conta? <Link :href="route('login')">Fazer Login</Link></span>
+            <span>Já possui conta?
+                <Link :href="route('login')">Fazer Login</Link>
+            </span>
         </section>
     </main>
 </template>
