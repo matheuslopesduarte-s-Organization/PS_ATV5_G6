@@ -101,6 +101,7 @@ function pPagi(index) {
 .livro img {
   width: 200px;
   height: 282px;
+  object-fit: cover;
 }
 
 .livro:hover {
@@ -146,7 +147,7 @@ function pPagi(index) {
   justify-content: flex-start;
   align-items: center;
   width: calc(100% - 25% - 40px);
-  padding: 20px;
+  padding: 0 20px;
   margin-left: 25%;
 }
 

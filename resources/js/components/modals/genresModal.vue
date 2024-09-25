@@ -17,6 +17,7 @@ const addGenre = () => {
         onError: (errors) => {
             console.error(errors); 
         },
+        preserveState: true,
     });
 };
 

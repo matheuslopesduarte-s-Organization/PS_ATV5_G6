@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = Users::all();
+        $users = Users::paginate(10);
         return inertia('admin/adminUsuariosView', [
             'users' => UsersResource::collection($users)
         ]);

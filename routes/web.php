@@ -17,13 +17,11 @@ Route::get('/seusLivros', function () {
     return Inertia::render('seusLivrosView');
 })->name('seusLivros');
 
-Route::get('/acervo/livro/{id}', function () {
-    return Inertia::render('acervoSingleView');
-})->name('acervo.single');
-
 });
 
-Route::get(uri: '/acervo', action: [CollectionController::class, 'index'])->name(name: 'acervo');
 
-require __DIR__.'/auth.php';
+Route::get(uri: '/acervo', action: [CollectionController::class, 'index'])->name(name: 'acervo');
+Route::get('/acervo/livro/{id}', action: [CollectionController::class, 'show'])->name(name: 'acervo.single');
+
 require __DIR__.'/admin.php';
+require __DIR__.'/auth.php';

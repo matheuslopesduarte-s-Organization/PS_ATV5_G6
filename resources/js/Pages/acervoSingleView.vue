@@ -2,28 +2,29 @@
 import headerComponent from '@/components/headerComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
 import { Link, Head } from '@inertiajs/vue3'
+
+const props = defineProps(['book'])
+
 </script>
 <template>
-    <Head title="Sede - Amélie Nothomb" />
+    <Head :title="book.data.title" />
 
     <headerComponent activeButton="emprestimo" />
     <main>
         <span>
-            <Link :href="route('home')">Voltar a pagina inicial</Link>
+            <Link :href="route('acervo')">Voltar ao acervo</Link>
         </span>
         <section class="title">
-            <h1>Sede - Amélie Nothomb</h1>
+            <h1>{{ book.data.title }}</h1>
         </section>
         <section class="livro">
-            <img src="/imagens/livro-capa.png" />
+            <img :src="book.data.cover" />
             <div class="livro-info">
-                <h2>Autor: Amélie Nothomb</h2>
-                <h2>Gênero: X</h2>
-                <h2>Classificação: Juvenil</h2>
+                <h2>Autor: {{ book.data.author }}</h2>
+                <h2>Gênero: {{  book.data.genre.name }}</h2>
+                <h2>Classificação: {{ book.data.classification }}</h2>
                 <h2>
-                    Sinopse: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ultricies, erat
-                    in sodales euismod, ex dui mattis arcu, non sagittis felis elit vitae ipsum. Nam rhoncus
-                    sagittis augue.
+                    Sinopse: {{ book.data.synopsis }}
                 </h2>
                 <div class="btn-emprestimo">
                     <button class="btn">Emprestar</button>
@@ -105,5 +106,13 @@ span {
 span a {
     color: #5e8194;
     text-decoration: none;
+}
+
+img {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #707070;
 }
 </style>

@@ -1,99 +1,14 @@
 <script setup>
-import headerComponent from '@/components/headerComponent.vue'
-import footerComponent from '@/components/footerComponent.vue'
-import carroselComponent from '@/components/carroselComponent.vue'
+import headerComponent from '@/components/headerComponent.vue';
+import footerComponent from '@/components/footerComponent.vue';
+import carroselComponent from '@/components/carroselComponent.vue';
 import { Head } from '@inertiajs/vue3';
-const generos = [
-    {
-        nome: 'Ação',
-        itens: [
-            {
-                to: 'acervo/livro/1',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/2',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/3',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/4',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/5',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/6',
-                capa: '/imagens/livro-capa.png'
-            }
-        ]
-    },
-    {
-        nome: 'Aventura',
-        itens: [
-            {
-                to: 'acervo/livro/7',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/8',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/9',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/10',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/11',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/12',
-                capa: '/imagens/livro-capa.png'
-            }
-        ]
-    },
-    {
-        nome: 'Romance',
-        itens: [
-            {
-                to: 'acervo/livro/13',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/14',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/15',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/16',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/17',
-                capa: '/imagens/livro-capa.png'
-            },
-            {
-                to: 'acervo/livro/18',
-                capa: '/imagens/livro-capa.png'
-            }
-        ]
-    }
-]
+
+const props = defineProps(['genres']);
 </script>
+
 <template>
+
     <Head title="Acervo" />
     <headerComponent activeButton="emprestimo" />
     <main>
@@ -105,11 +20,16 @@ const generos = [
                 <input type="text" placeholder="Pesquise um livro..." />
                 <img src="/icons/search.png" />
             </span>
-            <carroselComponent v-for="a in generos" :key="a" :items="a.itens" :title="a.nome" />
+
+            <carroselComponent v-for="genre in genres" :key="genre.id"
+                :items="genre.books.data.map(book => ({ to: `/acervo/livro/${book.isbn}`, capa: book.cover }))"
+                :title="genre.name" />
+
         </section>
     </main>
     <footerComponent />
 </template>
+
 <style scoped>
 main {
     display: flex;
