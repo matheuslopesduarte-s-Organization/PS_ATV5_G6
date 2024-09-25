@@ -27,7 +27,7 @@ const props = defineProps(['book'])
                     Sinopse: {{ book.data.synopsis }}
                 </h2>
                 <div class="btn-emprestimo">
-                    <button class="btn">Emprestar</button>
+                    <Link :href="`/emprestimos/criar/${book.data.isbn}`" class="btn">Emprestar</Link>
                 </div>
             </div>
         </section>
