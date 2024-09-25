@@ -4,6 +4,10 @@ import footerComponent from '@/components/footerComponent.vue'
 import tbComponent from '@/components/tbComponent.vue';
 import { Link, Head } from '@inertiajs/vue3';
 
+const props = defineProps({
+    book: Object,
+});
+
 const titles = ['Data', 'Estoque', 'Empréstimos'];
 const itens = [
     [
@@ -14,12 +18,12 @@ const itens = [
 ]
 </script>
 <template>
-    <Head title="(Admin) - Nome do livro" />
+    <Head :title="`(Admin) - ${book.data.title}`" />
     <headerComponent activeButton="acervo" />
     <main>
         <Link :href="route('admin.acervo')">Voltar</Link>
         <div>
-        <h2>Nome do livro</h2>
+        <h2>{{ book.data.title }}</h2>
         <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />
         </div>
     </main>

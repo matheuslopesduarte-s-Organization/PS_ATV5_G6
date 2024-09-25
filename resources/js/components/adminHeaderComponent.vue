@@ -46,9 +46,8 @@ document.addEventListener('scroll', () => {
             <Link :class="activeButton == 'adicionar_livro' ? 'active link' : 'link'" class="link" :href="route('admin.acervo.adicionar')">Adicionar livro</Link>
         </span>
         <span class="itens">
-            <Link :href="route('home')">Voltar</Link>
-            <Link :class="activeButton == 'login' ? 'hide login' : 'login'" :href="route('login')">Login</Link>
-            <Link :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'" :href="route('cadastrar')">Cadastrar
+            <Link v-if="$page.props.auth.user" :href="route('logout')" method="post" as="button" class="logout">Logout</Link>
+            <Link :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'" :href="route('home')">Voltar 
             </Link>
         </span>
     </header>
@@ -128,6 +127,18 @@ header {
 
 .cadastrar:active {
     color: #5e8194;
+}
+
+.logout {
+    background-color: #333333;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0;
+    cursor: pointer;
+    border: none;
 }
 
 .hide {

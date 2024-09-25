@@ -11,29 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create(table: 'users', callback: function (Blueprint $table) {
+            $table->char(column: 'cpf', length: 11)->primary();
+            $table->string(column: 'name', length: 100);
+            $table->string(column: 'email', length: 100)->unique();
+            $table->date(column: 'date_of_birth');
+            $table->char(column: 'password', length: 64);
+            $table->enum(column: 'user_type', allowed: ['child', 'teen', 'adult', 'admin']);
+            $table->char(column: 'guardian_cpf', length: 11)->nullable();
             $table->timestamps();
+        
+            $table->foreign(columns: 'guardian_cpf')->references(columns: 'cpf')->on(table: 'users')->onDelete(action: 'set null');
         });
+        
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+        Schema::create(table: 'sessions', callback: function (Blueprint $table) {
+            $table->string(column: 'id')->primary();
+            $table->foreignId(column: 'user_id')->nullable()->index();
+            $table->string(column: 'ip_address', length: 45)->nullable();
+            $table->text(column: 'user_agent')->nullable();
+            $table->longText(column: 'payload');
+            $table->integer(column: 'last_activity')->index();
         });
     }
 
@@ -42,8 +40,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::table(table: 'users', callback: function (Blueprint $table) {
+
+            $table->dropForeign(index: ['guardian_cpf']);
+        });
+
+        Schema::dropIfExists(table: 'users');
+        Schema::dropIfExists(table: 'sessions');
     }
 };

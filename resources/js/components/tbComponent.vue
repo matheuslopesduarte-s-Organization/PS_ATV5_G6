@@ -14,7 +14,7 @@ const itens = props.itens;
 </script>
 <template>
     <section class="tb">
-        <table v-if="itens.length >= 1">
+        <table>
             <thead>
                 <tr>
                     <th v-for="title in titles" :key="title">{{ title }}</th>
@@ -24,10 +24,12 @@ const itens = props.itens;
                 <tr v-for="item in itens" :key="item">
                     <td v-for="subitem in item" :key="subitem">{{ subitem }}</td>
                 </tr>
+                <tr v-if="itens.length < 1">
+                    <td class="no-itens" :colspan="titles.length">Nenhum item encontrado</td>
+                </tr>
             </tbody>
 
         </table>
-        <p v-if="itens.length < 1">Nenhum item encontrado</p>
     </section>
 </template>
 <style scoped>
@@ -64,6 +66,11 @@ table th,
 table td {
     padding: 15px 15px;
     border: 1px solid #ddd;
+}
+
+.no-itens {
+    text-align: center;
+    padding: 12px;
 }
 
 table th {
