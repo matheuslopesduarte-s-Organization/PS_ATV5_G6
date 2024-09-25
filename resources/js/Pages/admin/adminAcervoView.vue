@@ -8,16 +8,11 @@ const props = defineProps({
     books: Object,
 });
 
-const deleteBook = (isbn) => {
-    if (confirm('Você tem certeza que deseja excluir este livro?')) {
-        useForm().delete(`/admin/acervo/${isbn}`);
-    }
-};
-
 
 </script>
 
 <template>
+
     <Head title="(Admin) - Acervo" />
     <headerComponent activeButton="acervo" />
     <main>
@@ -25,18 +20,26 @@ const deleteBook = (isbn) => {
             <template #default="{ item }">
                 <div style="display:flex;gap:15px">
                     <Link :href="`/admin/acervo/${item.isbn}/edit`">
-                        <img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;" src="/icons/edit.png" />
+                    <img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;"
+                        src="/icons/edit.png" />
                     </Link>
-                    <button @click="deleteBook(item.isbn)" style="border: none; background: none; padding: 0;">
-                        <img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;" src="/icons/delete.png" />
-                    </button>
+                    <Link :href="`/admin/acervo/${item.isbn}/edit?delete`">
+                    <img class="list-component-subcomp" style="height: 25px; width: 25px; object-fit: cover;"
+                        src="/icons/delete.png" />
+                    </Link>
                 </div>
             </template>
         </listComponent>
 
-        <div v-if="books.meta.total > 0">
-            <p>Mostrando {{ books.meta.from }} a {{ books.meta.to }} de {{ books.meta.total }} livros</p>
-          
+        <div class="pagination-div" v-if="books.meta.total > 0">
+
+            <p>{{ books.meta.from }} - {{ books.meta.to }} / {{ books.meta.total }}</p>
+            <div class="pagination">
+                <Link v-for="(valor, nome) in books.links" :style="typeof valor != 'string' ? 'display: none' : null" :key="nome" :href="valor" class="pagination-link"
+                    :class="{ 'pagination-link-active': page }">
+                {{ nome }}
+                </Link>
+            </div>
         </div>
     </main>
     <footerComponent />
@@ -61,5 +64,31 @@ main {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.080);
     border-radius: 5px;
+}
+
+.pagination-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pagination {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #5e8194;
+    color: white;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #587481;
+}
+
+.pagination a:active {
+    background-color: #4e6a7a;
 }
 </style>

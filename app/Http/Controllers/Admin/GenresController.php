@@ -17,14 +17,17 @@ class GenresController extends Controller
             'name' => $request->name,
         ]);
 
-        return Inertia::share('success', 'Gênero criado com sucesso!');
+         redirect()->back()->with('success', 'Gênero criado com sucesso!');
     }
 
     public function destroy(Genres $genre)
     {
+        if ($genre->books()->exists()) {
+           return redirect()->back()->withErrors(['error' => 'Não é possível deletar um gênero com livros associados!']);
+        }
         $genre->delete();
+        return redirect()->back()->with('success', 'Gênero deletado com sucesso!');
 
-        return Inertia::share('success', 'Gênero deletado com sucesso!');
     }
 
 }

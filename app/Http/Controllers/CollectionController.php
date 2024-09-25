@@ -4,25 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BookResource;
 use App\Models\Books;
+use App\Models\Genres;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CollectionController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $genreId = $request->input('genre_id');
+        $genres = Genres::with('books')->get();
 
-        $books = Books::with('genre')
-            ->when($genreId, function ($query) use ($genreId) {
-                return $query->where('genre_id', $genreId);
-            })
-            ->paginate(10);
+        $genresWithBooks = $genres->map(function ($genre) {
+            return [
+                'id' => $genre->id,
+                'name' => $genre->name,
+                'books' => BookResource::collection($genre->books) 
+            ];
+        });
 
         return Inertia::render('acervoView', [
-            'books' => BookResource::collection($books),
-            'genres' => [],
-            'selectedGenre' => $genreId,
+            'genres' => $genresWithBooks, 
         ]);
     }
 
@@ -30,8 +31,8 @@ class CollectionController extends Controller
     {
         $book = Books::where('isbn', $isbn)->firstOrFail();
 
-        return Inertia::render('livroView', [
+        return Inertia::render('acervoSingleView', [
             'book' => new BookResource($book),
         ]);
-    }   
+    }
 }

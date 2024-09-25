@@ -3,8 +3,12 @@ import headerComponent from '@/components/adminHeaderComponent.vue';
 import footerComponent from '@/components/footerComponent.vue';
 import { Link, Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import genresModal from '@/components/modals/genresModal.vue';
 
-const props = defineProps(['book', 'genres']); 
+
+const props = defineProps(['book', 'genres']);
+
+const showModal = ref(false);
 
 const form = useForm({
     isbn: props.book.isbn,
@@ -12,12 +16,12 @@ const form = useForm({
     author: props.book.author,
     classification: props.book.classification,
     synopsis: props.book.synopsis,
-    cover: props.book.cover, 
+    cover: props.book.cover,
     stock: props.book.stock,
     genre_id: props.book.genre_id,
 });
 
-const convertImageToBase64 = (file) => {
+function convertImageToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -30,26 +34,51 @@ const convertImageToBase64 = (file) => {
 
 const fileInput = ref(null);
 
-const triggerFileInput = () => {
+function triggerFileInput() {
     fileInput.value.click();
 };
 
-const handleCoverChange = async (event) => {
+async function handleCoverChange(event) {
     const file = event.target.files[0];
     if (file) {
-        form.cover = await convertImageToBase64(file); 
+        form.cover = await convertImageToBase64(file);
     }
 };
 
-const submit = async () => {
+async function submit() {
     if (form.cover && typeof form.cover !== 'string') {
         form.cover = await convertImageToBase64(form.cover);
     }
-    form.put(`/admin/acervo/${props.book.isbn}`); 
+    form.put(`/admin/acervo/${props.book.isbn}`);
 };
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.has('delete')) {
+    if (confirm('Tem certeza que deseja deletar este livro?')) {
+        form.delete(`/admin/acervo/${props.book.isbn}`);
+    }
+}
+
+function openAddGenreModal() {
+    showModal.value = true;
+};
+
+function deleteGenre() {
+    form.delete(route('admin.acervo.genre.delete', { id: form.genre_id }), {
+        onSuccess: () => {
+        },
+        onError: (error) => {
+            alert(error.error)
+        },
+        preserveState: true,
+    })
+}
+
 </script>
 
 <template>
+
     <Head title="(Admin) - Editar Livro" />
     <headerComponent activeButton="acervo" />
     <main>
@@ -57,36 +86,38 @@ const submit = async () => {
             <Link :href="route('admin.acervo')">Voltar à lista</Link>
         </span>
         <section class="livro">
-            <img 
-                class="img" 
-                :src="form.cover ? form.cover : props.book.cover" 
-                alt="Capa do livro" 
-                @click="triggerFileInput" 
-                style="cursor: pointer;"
-            />
-            <input 
-                type="file" 
-                accept="image/*" 
-                ref="fileInput" 
-                @change="handleCoverChange" 
-                style="display: none;"
-            />
+            <img class="img" :src="form.cover ? form.cover : props.book.cover" alt="Capa do livro"
+                @click="triggerFileInput" style="cursor: pointer;" />
+            <input type="file" accept="image/*" ref="fileInput" @change="handleCoverChange" style="display: none;" />
 
             <div class="livro-info">
+                <span class="error-msg" v-if="form.errors.title" role="alert">
+                    {{ form.errors.title }}
+                </span>
                 <div class="flex">
                     <label for="title"><img src="/icons/edit.png"> Título:</label>
-                    <input id="title" type="text" v-model="form.title" required />
+                    <input id="title" type="text" v-model="form.title" required/>
                 </div>
+                <span class="error-msg" v-if="form.errors.author" role="alert">
+                    {{ form.errors.author }}
+                    </span>
                 <div class="flex">
                     <label for="author"><img src="/icons/edit.png"> Autor:</label>
                     <input id="author" type="text" v-model="form.author" required />
                 </div>
+                <span class="error-msg" v-if="form.errors.genre_id" role="alert">
+                    {{ form.errors.genre_id }}
+                    </span>
                 <div class="flex">
                     <label for="genre_id"><img src="/icons/edit.png"> Gênero:</label>
                     <select id="genre_id" v-model="form.genre_id" required>
                         <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
-                    </select>
+                    </select><button type="button" @click="openAddGenreModal">Adicionar Gênero</button>
+                    <button type="button" @click="deleteGenre">Deletar Gênero Selecionado</button>
                 </div>
+                <span class="error-msg" v-if="form.errors.classification" role="alert">
+                    {{ form.errors.classification }}
+                    </span>
                 <div class="flex">
                     <label for="classification"><img src="/icons/edit.png"> Classificação:</label>
                     <select id="classification" v-model="form.classification" required>
@@ -95,6 +126,9 @@ const submit = async () => {
                         <option value="adult">Adulto</option>
                     </select>
                 </div>
+                <span class="error-msg" v-if="form.errors.synopsis" role="alert">
+                    {{ form.errors.synopsis }}
+                    </span>
                 <div class="flex">
                     <label for="synopsis"><img src="/icons/edit.png"> Sinopse:</label>
                     <textarea id="synopsis" v-model="form.synopsis" required></textarea>
@@ -104,6 +138,7 @@ const submit = async () => {
                     <button class="btn" @click.prevent="submit">Salvar</button>
                 </div>
             </div>
+            <genresModal v-if="showModal" @show="showModal" @close="showModal = false" />
         </section>
     </main>
     <footerComponent />
@@ -212,5 +247,12 @@ textarea {
     height: 450px;
     object-fit: cover;
     cursor: pointer;
+    border: 1px solid #707070;
+}
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
 }
 </style>

@@ -233,4 +233,10 @@ span a {
 .nascimento input {
     width: calc((250px - 66px) / 3);
 }
+
+.error-msg {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
+}
 </style>

@@ -17,7 +17,7 @@ Route::prefix('admin')->middleware([RequireAdmin::class])->group(function () {
     Route::post('/genres', [Admin\GenresController::class, 'store'])
         ->name('genres.store'); 
     Route::delete('/genres/{genre}', [Admin\GenresController::class, 'destroy'])
-        ->name('genres.destroy'); 
+        ->name('admin.acervo.genre.delete'); 
 
     Route::get('/usuarios', [Admin\UsersController::class, 'index'])->name('admin.usuarios');
     Route::get('/usuarios/{id}', [Admin\UsersController::class, 'show'])->name('admin.usuario');

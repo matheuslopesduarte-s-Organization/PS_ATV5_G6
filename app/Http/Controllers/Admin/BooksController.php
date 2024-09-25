@@ -14,7 +14,7 @@ class BooksController extends Controller
 {
     public function index(Request $request)
     {
-        $books = Books::with('genre')->paginate(1);
+        $books = Books::with('genre')->paginate(10);
         return Inertia::render('admin/adminAcervoView', [
             'books' => BookResource::collection($books),
         ]);
@@ -75,13 +75,16 @@ class BooksController extends Controller
 
         $book->save();
 
-        // Redireciona para a lista com uma mensagem de sucesso
         return redirect()->route('admin.acervo')->with('success', 'Livro atualizado com sucesso!');
     }
 
     public function destroy($isbn)
     {
         $book = Books::where('isbn', $isbn)->firstOrFail();
+
+        if ($book->loans()->count() > 0) {
+            return redirect()->route('admin.acervo')->withErrors('error', 'Livro não pode ser deletado, pois está emprestado!');
+        }
         $book->delete();
 
         return redirect()->route('admin.acervo')->with('success', 'Livro deletado com sucesso!');
