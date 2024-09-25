@@ -5,22 +5,19 @@ import tbComponent from '@/components/tbComponent.vue';
 import { Link, Head } from '@inertiajs/vue3';
 const titles = ['Livro', 'Empréstimo', 'devolução', 'Penalizações'];
 const itens = [
-    [
-        'Livro 1',
-        '01/01/2021',
-        '01/02/2021',
-        '30 dias'
-    ]
+    
 ]
+
+const props = defineProps(['user']);
 
 </script>
 <template>
-    <Head title="(Admin) - User 1" />
+    <Head :title="`(Admin) - ${user.name}`" />
     <headerComponent activeButton="usuarios" />
     <main>
         <Link :href="route('admin.usuarios')">Voltar</Link>
         <div>
-        <h2>User 1<img src="/icons/user.png"></h2>
+        <h2>{{ user.name }}<img src="/icons/user.png"></h2>
         <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />
     </div>
     </main>
@@ -40,6 +37,9 @@ h2 {
     position: relative;
     right: 30px;
     display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin: 16px 0 0 0;
 }
 h2 img {
     width: 30px;

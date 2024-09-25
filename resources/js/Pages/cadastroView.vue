@@ -26,9 +26,6 @@ form.dataNascimento = computed(() => {
 
 const submit = () => {
     form.post(route('cadastrar'), {
-        onSuccess: () => {
-            form.reset()
-        },
         onError: () => {
             form.reset('senha')
             form.reset('senha_confirmation')
@@ -85,6 +82,9 @@ const submit = () => {
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 25px">
+                        <span class="error-msg" v-if="form.errors.senha">
+                            {{ form.errors.senha }}
+                        </span>
                         <input type="password" placeholder="Senha" v-model="form.senha" />
                         <input type="password" placeholder="Confirmar Senha" v-model="form.senha_confirmation" />
                         <span class="error-msg" v-if="form.errors.dataNascimento">

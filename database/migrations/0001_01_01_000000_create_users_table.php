@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(table: 'usuarios', callback: function (Blueprint $table) {
+        Schema::create(table: 'users', callback: function (Blueprint $table) {
             $table->char(column: 'cpf', length: 11)->primary();
-            $table->string(column: 'nome', length: 100);
+            $table->string(column: 'name', length: 100);
             $table->string(column: 'email', length: 100)->unique();
-            $table->date(column: 'data_nascimento');
-            $table->char(column: 'senha', length: 64);
-            $table->enum(column: 'tipo_usuario', allowed: ['infantil', 'juvenil', 'adulto', 'admin']);
-            $table->char(column: 'responsavel_cpf', length: 11)->nullable();
+            $table->date(column: 'date_of_birth');
+            $table->char(column: 'password', length: 64);
+            $table->enum(column: 'user_type', allowed: ['child', 'teen', 'adult', 'admin']);
+            $table->char(column: 'guardian_cpf', length: 11)->nullable();
             $table->timestamps();
-
-            $table->foreign(columns: 'responsavel_cpf')->references(columns: 'cpf')->on(table: 'usuarios')->onDelete(action: 'set null');
+        
+            $table->foreign(columns: 'guardian_cpf')->references(columns: 'cpf')->on(table: 'users')->onDelete(action: 'set null');
         });
+        
 
         Schema::create(table: 'sessions', callback: function (Blueprint $table) {
             $table->string(column: 'id')->primary();
@@ -39,12 +40,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table(table: 'usuarios', callback: function (Blueprint $table) {
+        Schema::table(table: 'users', callback: function (Blueprint $table) {
 
-            $table->dropForeign(index: ['responsavel_cpf']);
+            $table->dropForeign(index: ['guardian_cpf']);
         });
 
-        Schema::dropIfExists(table: 'usuarios');
+        Schema::dropIfExists(table: 'users');
         Schema::dropIfExists(table: 'sessions');
     }
 };

@@ -1,4 +1,5 @@
 <script setup>
+import popupComponent from './popupComponent.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue'
 
@@ -38,21 +39,27 @@ document.addEventListener('scroll', () => {
 })
 </script>
 <template>
+    <popupComponent />
     <header :style="background">
         <span class="itens">
             <Link :href="route('home')"><img style="height: 60px" class="logo" src="/icons/logo-pequena.png" /></Link>
-            <Link :class="activeButton == 'emprestimo' ? 'active link' : 'link'" :href="route('acervo')">Fazer empréstimo
+            <Link :class="activeButton == 'emprestimo' ? 'active link' : 'link'" :href="route('acervo')">Fazer
+            empréstimo
             </Link>
-            <Link :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link" :href="route('seusLivros')">
-                Seus Livros
+            <Link :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link"
+                :href="route('seusLivros')">
+            Seus Livros
             </Link>
         </span>
         <span class="itens">
-            <Link v-if="$page.props.auth.user" :href="route('admin.usuarios')">Admin</Link>
-            <Link v-if="$page.props.auth.user" :href="route('logout')">Logout</Link>
-            <Link v-if="!$page.props.auth.user" :href="route('login')" :class="activeButton == 'login' ? 'hide login' : 'login'">Login</Link>
-            <Link v-if="!$page.props.auth.user" :href="route('cadastrar')" :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">Cadastrar
-            </Link>
+            <Link v-if="$page.props.auth.user" :href="route('logout')" method="post" as="button" class="logout">Logout</Link>
+            <Link v-if="$page.props.auth.user && $page.props.auth.user.user_type == 'admin'"
+                :href="route('admin.usuarios')" :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">
+            Painel Admin</Link>
+            <Link v-if="!$page.props.auth.user" :href="route('login')"
+                :class="activeButton == 'login' ? 'hide login' : 'login'">Login</Link>
+            <Link v-if="!$page.props.auth.user" :href="route('cadastrar')"
+                :class="activeButton == 'cadastrar' ? 'hide cadastrar' : 'cadastrar'">Cadastrar</Link>
         </span>
     </header>
 </template>
@@ -125,6 +132,19 @@ header {
     font-weight: 700;
     margin: 0;
     margin-right: 50px;
+}
+
+.logout {
+    background-color: #333333;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0;
+    margin-right: 50px;
+    cursor: pointer;
+    border: none;
 }
 
 .cadastrar:hover {

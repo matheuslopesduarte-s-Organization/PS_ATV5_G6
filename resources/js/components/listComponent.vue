@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 <template>
     <span class="search">
-        <input type="text" placeholder="Pesquise um livro..." />
+        <input type="text" :placeholder="'Pesquise um ' + title.slice(0, title.length - 1) + '...'" />
         <img src="/icons/search.png" />
     </span>
     <section class="list">
@@ -28,7 +28,9 @@ const props = defineProps({
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.desc }}</p>
                 </div>
-                <div v-html="item.component"></div>
+                <div>
+                    <slot :item="item" />
+                </div>
             </Link>
             </ul>
         </li>
@@ -89,6 +91,8 @@ ul a {
     cursor: default;
     text-decoration: none;
     color: black;
+    z-index: 11;
+    position: relative;
 }
 
 ul a:hover {
@@ -106,7 +110,7 @@ ul:last-child {
 li ul div {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 }
 

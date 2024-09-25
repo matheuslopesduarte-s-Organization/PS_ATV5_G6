@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Auth\Events\Lockout;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\CPFValidRule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Lockout;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class LoginRequest extends FormRequest
 {
@@ -27,7 +30,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'identifier' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,11 +44,24 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $identifier = $this->input('identifier');
+        $credentials = ['password' => hash('sha256',$this->input('password'))];
+
+        if ($this->isEmail($identifier)) {
+            $credentials['email'] = $identifier;
+        } elseif ($this->isCPF($identifier)) {
+            $credentials['cpf'] = $identifier;
+        } else {
+            throw ValidationException::withMessages([
+                'identifier' => trans('auth.failed'),
+            ]);
+        }
+
+        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'identifier' => trans('auth.failed'),
             ]);
         }
 
@@ -68,7 +84,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'identifier' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -80,6 +96,21 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->input('identifier')).'|'.$this->ip());
+    }
+
+    private function isEmail(string $identifier): bool
+    {
+        return filter_var($identifier, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    private function isCPF(string $identifier): bool
+    {
+        $validator = Validator::make(
+            ['cpf' => $identifier],
+            ['cpf' => [new CPFValidRule]]
+        );
+
+        return !$validator->fails();
     }
 }

@@ -3,44 +3,47 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Inertia\Response;
-use Inertia\Inertia;
-use Illuminate\Validation\Rules;
-use App\Models\Usuarios;
+use App\Http\Requests\Auth\RegisterRequest; 
+use App\Models\Users;
 use Carbon\Carbon;
+use Inertia\Inertia;
+use Inertia\Response;
+use App\Rules\UserTypeRules;
 
 class RegisterController extends Controller
 {
-    public function index(): Response {
-        return Inertia::render(component: "cadastroView");
+    /**
+     * Exibe a página de cadastro.
+     */
+    public function index(): Response
+    {
+        return Inertia::render('cadastroView');
     }
-    public function store(Request $request) {
-        $request->validate([
-            'nome' => 'required',
-            'cpf' => 'required',
-            'email' => 'required|email',
-            'senha' => ['required', 'confirmed', Rules\Password::defaults()],
-            'dataNascimento' => 'required|date',
-        ]);
 
+    /**
+     * Realiza o registro de um novo usuário.
+     */
+    public function store(RegisterRequest $request)
+    {
         $dataNascimento = Carbon::parse($request->dataNascimento);
         $idade = $dataNascimento->age;
 
-        if ($idade < 18 || !$request->cpfResp) {
-            return redirect()->back()->withErrors(['dataNascimento' => 'Você deve ter pelo menos 18 anos para se registrar. Você tem:'  . $idade . 'nascido em:' . $dataNascimento->format('d/m/Y')]);
+        if ($idade < 18 && !$request->cpfResp) {
+            return redirect()->back()->withErrors(['dataNascimento' => 'Você deve fornecer o CPF do responsável se for menor de 18 anos.']);
         }
 
-        Usuarios::create([
-            'nome' => $request->nome,
-            'email' => $request->email,
-            'senha' => hash('sha256', $request->senha),
-            'cpf' => $request->cpf,
-            'data_nascimento' => $dataNascimento,
-            'responsavel_cpf' => $request->cpfResp,
-            'tipo_usuario' => 'adulto'
-        ]);
-        return redirect()->route('login');
-    }
+        $userType = UserTypeRules::getType($dataNascimento);
 
+        Users::create([
+            'name' => $request->nome,
+            'email' => $request->email,
+            'password' => hash('sha256', $request->senha),
+            'cpf' => $request->cpf,
+            'date_of_birth' => $dataNascimento,
+            'guardian_cpf' => $idade < 18 ? $request->cpfResp : null,
+            'user_type' => $userType,
+        ]);
+
+        return redirect()->route(route: 'home')->with('success', 'Cadastro realizado com sucesso!');
+    }
 }

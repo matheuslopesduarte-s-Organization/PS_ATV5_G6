@@ -2,7 +2,7 @@
 import { Link, Head, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
-    email: '',
+    identifier: '',
     password: '',
 })
 
@@ -33,10 +33,10 @@ const submit = () => {
 
         <section class="login">
             <form @submit.prevent="submit">
-                <span class="error-msg" v-if="form.errors.email" role="alert">
-                    {{ form.errors.email }}
+                <span class="error-msg" v-if="form.errors.identifier" role="alert">
+                    {{ form.errors.identifier }}
                 </span>
-                <input v-model="form.email" type="text" placeholder="Email" />
+                <input v-model="form.identifier" type="text" placeholder="Email ou cpf" />
                 <span class="error-msg" v-if="form.errors.password" role="alert">
                     {{ form.errors.password }}
                 </span>

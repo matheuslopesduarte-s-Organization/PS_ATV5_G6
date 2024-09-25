@@ -1,70 +1,119 @@
 <script setup>
-import headerComponent from '@/components/adminHeaderComponent.vue'
-import footerComponent from '@/components/footerComponent.vue'
-import { Link, Head } from '@inertiajs/vue3';
+import headerComponent from '@/components/adminHeaderComponent.vue';
+import footerComponent from '@/components/footerComponent.vue';
+import { Link, Head, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const props = defineProps(['book', 'genres']); 
+
+const form = useForm({
+    isbn: props.book.isbn,
+    title: props.book.title,
+    author: props.book.author,
+    classification: props.book.classification,
+    synopsis: props.book.synopsis,
+    cover: props.book.cover, 
+    stock: props.book.stock,
+    genre_id: props.book.genre_id,
+});
+
+const convertImageToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+};
+
+const fileInput = ref(null);
+
+const triggerFileInput = () => {
+    fileInput.value.click();
+};
+
+const handleCoverChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.cover = await convertImageToBase64(file); 
+    }
+};
+
+const submit = async () => {
+    if (form.cover && typeof form.cover !== 'string') {
+        form.cover = await convertImageToBase64(form.cover);
+    }
+    form.put(`/admin/acervo/${props.book.isbn}`); 
+};
 </script>
+
 <template>
     <Head title="(Admin) - Editar Livro" />
-    <headerComponent activeButton="emprestimo" />
+    <headerComponent activeButton="acervo" />
     <main>
         <span>
-            <Link :href="route('admin.acervo')">Voltar a lista</Link>
+            <Link :href="route('admin.acervo')">Voltar à lista</Link>
         </span>
-        <section class="title">
-            <h1>Sede - Amélie Nothomb</h1>
-        </section>
         <section class="livro">
-            <img class="img" src="/imagens/livro-capa.png" />
+            <img 
+                class="img" 
+                :src="form.cover ? form.cover : props.book.cover" 
+                alt="Capa do livro" 
+                @click="triggerFileInput" 
+                style="cursor: pointer;"
+            />
+            <input 
+                type="file" 
+                accept="image/*" 
+                ref="fileInput" 
+                @change="handleCoverChange" 
+                style="display: none;"
+            />
+
             <div class="livro-info">
                 <div class="flex">
-                <label for="autor"><img src="/icons/edit.png">Autor:</label>
-                <input id="autor" type="text" value="Amélie Nothomb">
+                    <label for="title"><img src="/icons/edit.png"> Título:</label>
+                    <input id="title" type="text" v-model="form.title" required />
                 </div>
                 <div class="flex">
-                <label for="genero"><img src="/icons/edit.png">Genero:</label>
-                <input id="genero" type="text" value="X">
+                    <label for="author"><img src="/icons/edit.png"> Autor:</label>
+                    <input id="author" type="text" v-model="form.author" required />
                 </div>
                 <div class="flex">
-                <label for="classificacao"><img src="/icons/edit.png">Classificacao:</label>
-                <select id="classificacao" type="text" value="juvenil">
-                    <option value="juvenil">Juvenil</option>
-                    <option value="adulto">Adulto</option>
-                    <option value="infantil">Infantil</option>
-                </select>
-                
-            </div>
-            <div class="flex">
-                <label for="sinopse"><img src="/icons/edit.png">Sinopse:</label>
-                <textarea id="sinopse" type="text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque  ultricies, erat in sodales euismod, ex dui mattis arcu, non sagittis  felis elit vitae ipsum. Nam rhoncus sagittis augue.</textarea>
+                    <label for="genre_id"><img src="/icons/edit.png"> Gênero:</label>
+                    <select id="genre_id" v-model="form.genre_id" required>
+                        <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+                    </select>
                 </div>
+                <div class="flex">
+                    <label for="classification"><img src="/icons/edit.png"> Classificação:</label>
+                    <select id="classification" v-model="form.classification" required>
+                        <option value="children">Infantil</option>
+                        <option value="teen">Juvenil</option>
+                        <option value="adult">Adulto</option>
+                    </select>
+                </div>
+                <div class="flex">
+                    <label for="synopsis"><img src="/icons/edit.png"> Sinopse:</label>
+                    <textarea id="synopsis" v-model="form.synopsis" required></textarea>
+                </div>
+
                 <div class="btn-emprestimo">
-                    <button class="btn">Salvar</button>
+                    <button class="btn" @click.prevent="submit">Salvar</button>
                 </div>
             </div>
         </section>
     </main>
     <footerComponent />
 </template>
+
 <style scoped>
 main {
     display: flex;
     padding-top: 84px;
     flex-direction: column;
-}
-
-.title {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: calc(100% - 15% - 40px);
-    padding: 20px;
-    margin-left: 15%;
-}
-
-.title h1 {
-    font-size: 28px;
-    font-weight: 700;
-    font-family: 'Kumbh Sans', sans-serif;
 }
 
 .livro {
@@ -118,6 +167,7 @@ span a {
     color: #5e8194;
     text-decoration: none;
 }
+
 input {
     font-family: 'Kumbh Sans', sans-serif;
     font-size: 12px;
@@ -125,21 +175,22 @@ input {
     border: none;
     background-color: #f0f0f0;
     padding: 10px;
-    
     flex: 1;
 }
+
 .flex {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     gap: 10px;
 }
+
 label {
     display: flex;
     align-items: center;
     gap: 5px;
-
 }
+
 .flex img {
     width: 20px;
 }
@@ -159,5 +210,7 @@ textarea {
 .img {
     width: 300px;
     height: 450px;
+    object-fit: cover;
+    cursor: pointer;
 }
 </style>
