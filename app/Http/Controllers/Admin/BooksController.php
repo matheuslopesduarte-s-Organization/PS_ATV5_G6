@@ -80,10 +80,12 @@ class BooksController extends Controller
 
     public function destroy($isbn)
     {
+        \Log::info('Livro deletado', ['isbn' => $isbn]);
+
         $book = Books::where('isbn', $isbn)->firstOrFail();
 
         if ($book->loans()->count() > 0) {
-            return redirect()->route('admin.acervo')->withErrors('error', 'Livro não pode ser deletado, pois está emprestado!');
+            return redirect()->route('admin.acervo')->withErrors(['error'=> 'Livro não pode ser deletado, pois está emprestado!']);
         }
         $book->delete();
 

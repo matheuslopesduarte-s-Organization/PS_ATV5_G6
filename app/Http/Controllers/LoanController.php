@@ -17,12 +17,27 @@ class LoanController extends Controller
         
         $loans = Loans::with(['book', 'user'])->get();
 
+        $loans = $loans->map(function ($loan) {
+            return [
+                'id' => $loan->id,
+                'book' => new BookResource($loan->book),
+                'user' => $loan->user,
+                'loan_date' => $loan->loan_date,
+                'return_date' => $loan->return_date,
+                'status' => $loan->status,
+            ];
+        });
+
+        return Inertia::render('seusLivrosView', [
+            'loans' => $loans,
+        ]);
 
 
 
     }
 
     public function create($id) {
+
         $book = Books::findOrFail($id);
 
         return Inertia::render('emprestimoView', [
@@ -35,35 +50,30 @@ class LoanController extends Controller
     {
         $book = Books::findOrFail($id);
 
-        $request->validate([
-            'mes' => 'required|integer|between:1,12',
-            'dia' => 'required|integer|between:1,31',
-        ]);
-
-        $loan = Loans::where('users_cpf', auth()->user()->cpf)->where('status', 'active')->first();
+        $loan = Loans::where('users_cpf', auth()->user()->cpf)->where('status', '!=', 'returned')->first();
         if ($loan) {
-            return redirect()->back()->with('error', 'Você já possui um livro emprestado!');
+            return redirect()->back()->withErrors(['error' => 'Você já possui um livro emprestado!']);
         }
-
-
-        $loanDate = Carbon::createFromDate(null, $request->mes, $request->dia);
-
-        $returnDeadline = $loanDate->copy()->addDays(30);
+        if ($book->stock <= 0) {
+            return redirect()->back()->withErrors(['error' => 'Não há exemplares disponíveis para empréstimo!']);
+        }
 
         $loan = Loans::create([
             'users_cpf' => auth()->user()->cpf,
             'book_isbn' => $book->isbn,
-            'loan_date' => $loanDate,
+            'loan_date' => null,
             'return_date' => null, 
-            'status' => 'active',
-            'return_deadline' => $returnDeadline,
+            'status' => 'ready',
         ]);
+
+        $book->stock --;
+        $book->save();
+
         \Log::info('LoanController');
         event(new LoanCreatedEvent($loan));
 
     }
 
-    // Mostrar um empréstimo específico
     public function show($id)
     {
         $loan = Loans::with(['book', 'user', 'penalties'])->findOrFail($id);

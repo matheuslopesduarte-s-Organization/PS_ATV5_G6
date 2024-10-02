@@ -44,6 +44,7 @@ document.addEventListener('scroll', () => {
             </Link>
             <Link :class="activeButton == 'acervo' ? 'active link' : 'link'" :href="route('admin.acervo')">Acervo</Link>
             <Link :class="activeButton == 'adicionar_livro' ? 'active link' : 'link'" class="link" :href="route('admin.acervo.adicionar')">Adicionar livro</Link>
+            <Link :class="activeButton == 'emprestimos' ? 'active link' : 'link'" :href="route('admin.emprestimos')">Empréstimos</Link>
         </span>
         <span class="itens">
             <Link v-if="$page.props.auth.user" :href="route('logout')" method="post" as="button" class="logout">Logout</Link>

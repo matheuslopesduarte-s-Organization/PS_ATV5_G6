@@ -2,7 +2,7 @@
 import headerComponent from '@/components/adminHeaderComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
 import listComponent from '@/components/listComponent.vue'
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps(['users']);
 

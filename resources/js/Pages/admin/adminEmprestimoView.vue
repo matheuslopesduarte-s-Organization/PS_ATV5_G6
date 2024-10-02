@@ -3,29 +3,29 @@ import headerComponent from '@/components/adminHeaderComponent.vue'
 import footerComponent from '@/components/footerComponent.vue'
 import tbComponent from '@/components/tbComponent.vue';
 import { Link, Head } from '@inertiajs/vue3';
+const titles = ['Status', 'Usuario', 'Data de emprestimo', 'Data de devolução'];
 
-const props = defineProps({
-    book: Object,
-});
+const props = defineProps(['loan'])
 
-const titles = ['Data', 'Estoque', 'Empréstimos'];
-const itens = [
-    [
-        'N/A',
-        '10',
-        '5'
+const itens = props.loan.map((item) => {
+    return [
+        item.status,
+        item.user.name,
+        item.loan_date,
+        item.return_date
     ]
-]
+})
+
 </script>
 <template>
-    <Head :title="`(Admin) - ${book.data.title}`" />
-    <headerComponent activeButton="acervo" />
+    <Head :title="`(Admin) - Emprestimos`" />
+    <headerComponent activeButton="usuarios" />
     <main>
-        <Link :href="route('admin.acervo')">Voltar</Link>
+        <Link :href="route('admin.usuarios')">Voltar</Link>
         <div>
-        <h2>{{ book.data.title }}</h2>
+        <h2><img src="/icons/user.png"></h2>
         <tbComponent :titles="titles" :itens="itens" :title="'aaaaaaaaaa'" />
-        </div>
+    </div>
     </main>
     <footerComponent />
 </template>
@@ -42,6 +42,15 @@ h2 {
     text-align: left;
     position: relative;
     right: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin: 16px 0 0 0;
+}
+h2 img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
 }
 
 a {
@@ -49,11 +58,4 @@ a {
     text-align: center;
     margin-top: 20px;
 }
-</style>
-<style>
-    .list-component-subcomp:hover {
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.080);
-        border-radius: 5px;
-    }
 </style>

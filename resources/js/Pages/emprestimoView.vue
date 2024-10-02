@@ -24,7 +24,7 @@ function submit() {
             showAlert()
         },
         onError: (errors) => {
-           
+           alert(errors.error)
         },
         preserveState: true,
     });
@@ -52,19 +52,14 @@ function submit() {
             
             <form @submit.prevent="submit">
                 <h2>Deseja mesmo emprestar este livro?</h2>
-                <label for="data_emprestimo">Data de inicio:</label>
-                <div class="nascimento">
-                    <input type="number" placeholder="mes" v-model="form.mes" />
-                    <input type="number" placeholder="dia" v-model="form.dia" />
-                </div>
                 <button type="submit" class="btn">Emprestar</button>
             </form>
         </section>
     </main>
     <div class="alerta" v-if="isAlert">
         <h1>Parabéns,
-            Você emprestou o livro “X”.</h1>
-            <p>Você tem até o dia {{ form.dia }}/{{ form.mes }} para devolve-lô.</p>
+            Você emprestou o livro <b>{{ book.data.title }}</b>.</h1>
+            <p>Você tem até o dia {{ form.dia }}/{{ form.mes }} para pega-lô.</p>
         </div>
     <footerComponent />
 </template>

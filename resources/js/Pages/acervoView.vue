@@ -15,7 +15,7 @@ const props = defineProps(['genres']);
         <section class="title">
             <h1>Acervo</h1>
         </section>
-        <section class="livros">
+        <section :class="(genres.length < 1)? 'no-items' : 'livros'">
             <span class="search">
                 <input type="text" placeholder="Pesquise um livro..." />
                 <img src="/icons/search.png" />
@@ -24,7 +24,7 @@ const props = defineProps(['genres']);
             <carroselComponent v-for="genre in genres" :key="genre.id"
                 :items="genre.books.data.map(book => ({ to: `/acervo/livro/${book.isbn}`, capa: book.cover }))"
                 :title="genre.name" />
-
+            <h2 v-if="genres.length < 1">Nenhum livro encontrado</h2>
         </section>
     </main>
     <footerComponent />
@@ -69,5 +69,13 @@ main {
 .search img {
     width: 20px;
     margin-left: -35px;
+}
+
+.no-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
 }
 </style>

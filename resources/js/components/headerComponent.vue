@@ -47,7 +47,7 @@ document.addEventListener('scroll', () => {
             empréstimo
             </Link>
             <Link :class="activeButton == 'seus_livros' ? 'active link' : 'link'" class="link"
-                :href="route('seusLivros')">
+                :href="route('loans.index')">
             Seus Livros
             </Link>
         </span>

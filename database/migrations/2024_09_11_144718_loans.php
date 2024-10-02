@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->id();
-            $table->date('loan_date');
+            $table->id()->autoIncrement();
+            $table->date('loan_date')->nullable();
             $table->date('return_date')->nullable();
-            $table->enum('status', ['active', 'returned', 'overdue']);
-            $table->date('return_deadline')->default(now()->addDays(30));
+            $table->enum('status', ['active', 'returned', 'overdue', 'ready']);
+            $table->date('return_deadline')->nullable();
             $table->char('users_cpf', length: 11);
             $table->string('book_isbn', 13);
             $table->timestamps();

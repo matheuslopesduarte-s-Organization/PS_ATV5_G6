@@ -19,8 +19,6 @@ const form = useForm({
     genre_id: '',
 });
 
-const genres = ref(props.genres);
-
 function convertImageToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -44,7 +42,7 @@ function openAddGenreModal() {
 function deleteGenre() {
     form.delete(route('admin.acervo.genre.delete', { id: form.genre_id }), {
         onSuccess: () => {
-
+            form.genre_id = '';
         },
         onError: (error) => {
             alert(error.error)
@@ -119,16 +117,17 @@ function deleteGenre() {
                         </span>
                         <label for="genre_id">Gênero</label>
                         <select id="genre_id" v-model="form.genre_id" required>
-                            <option value="">Selecione um gênero</option>
-                            <option v-for="genre in genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
+                            <option value="" disabled>Selecione um gênero</option>
+                            <option v-for="genre in props.genres" :key="genre.id" :value="genre.id">{{ genre.name }}</option>
                         </select>
                         <div>
                             <button type="button" @click="openAddGenreModal">Adicionar Gênero</button>
                             <button type="button" @click="deleteGenre">Deletar Gênero Selecionado</button>
                         </div>
+                        <button class="send" type="submit">Adicionar</button>
                     </div>
                 </div>
-                <button type="submit">Adicionar</button>
+
             </form>
             <genresModal v-if="showModal" @show="showModal" @close="showModal = false" />
         </section>
@@ -180,5 +179,15 @@ textarea {
     color: red;
     font-size: 14px;
     font-weight: 500;
+}
+
+.send {
+    background-color: #5E8A4F;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 75px;
+    border: none;
 }
 </style>

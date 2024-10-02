@@ -5,7 +5,6 @@ import { Link, Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import genresModal from '@/components/modals/genresModal.vue';
 
-
 const props = defineProps(['book', 'genres']);
 
 const showModal = ref(false);
@@ -56,7 +55,12 @@ const urlParams = new URLSearchParams(window.location.search);
 
 if (urlParams.has('delete')) {
     if (confirm('Tem certeza que deseja deletar este livro?')) {
-        form.delete(`/admin/acervo/${props.book.isbn}`);
+        form.delete(`/admin/acervo/${props.book.isbn}`, {
+            onError: (error) => {
+                alert(error.error)
+            },
+            preserveState: true,
+        })
     }
 }
 

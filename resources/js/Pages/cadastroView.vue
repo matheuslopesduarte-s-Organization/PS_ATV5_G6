@@ -61,7 +61,7 @@ const submit = () => {
                     </div>
                 </div>
                 <div style="display: flex; gap: 15px">
-                    <div style="display: flex; flex-direction: column; gap: 25px">
+                    <div style="display: flex;max-width: 270px; flex-direction: column; gap: 25px">
                         <span class="error-msg" v-if="form.errors.nome">
                             {{ form.errors.nome }}
                         </span>
@@ -81,7 +81,7 @@ const submit = () => {
                             v-model="form.cpfResp" />
                     </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 25px">
+                    <div style="display: flex;max-width: 270px; flex-direction: column; gap: 25px">
                         <span class="error-msg" v-if="form.errors.senha">
                             {{ form.errors.senha }}
                         </span>
@@ -145,7 +145,6 @@ input {
     padding: 12px;
     border-radius: 12px;
     border: 2px solid #848484b1;
-
     width: 250px;
 }
 

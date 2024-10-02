@@ -51,10 +51,12 @@ function pPagi(index) {
       <img src="/icons/seta.png" />
     </button>
     <div class="itens">
-      <div class="carousel-track" :style="trackStyle">
+      <div :class="(items.length < 1)? 'no-items' : 'carousel-track'" :style="trackStyle">
         <Link v-for="(item, index) in items" :href="item.to" :key="index" class="livro">
           <img :src="item.capa" />
+          <slot :item="item" />
         </Link>
+        <h2 v-if="items.length < 1">Nenhum item encontrado</h2>
       </div>
     </div>
     <button :class="pagiAtual >= items.length - porPagi ? 'button-right hide' : 'button-right'" @click="proxPagi">
@@ -92,7 +94,6 @@ function pPagi(index) {
 
 .livro {
   width: 200px;
-  height: 282px;
   object-fit: cover;
   user-select: none;
   transition: transform 0.1s ease-in-out;
@@ -107,6 +108,13 @@ function pPagi(index) {
 .livro:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.no-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .button-right,
