@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest; 
 use App\Models\Users;
 use Carbon\Carbon;
@@ -10,19 +9,14 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Rules\UserTypeRules;
 
-class RegisterController extends Controller
+class RegisterController 
 {
-    /**
-     * Exibe a página de cadastro.
-     */
+
     public function index(): Response
     {
         return Inertia::render('cadastroView');
     }
 
-    /**
-     * Realiza o registro de um novo usuário.
-     */
     public function store(RegisterRequest $request)
     {
         $dataNascimento = Carbon::parse($request->dataNascimento);

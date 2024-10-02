@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +9,7 @@ use Inertia\Response;
 use Inertia\Inertia;
 use App\Http\Requests\Auth\LoginRequest;
 
-class LoginController extends Controller
+class LoginController 
 {
     public function index(): Response
     {

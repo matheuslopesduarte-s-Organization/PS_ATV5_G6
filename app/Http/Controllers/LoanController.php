@@ -7,14 +7,13 @@ use App\Models\Books;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\http\Resources\BookResource;
-use Carbon\Carbon;
-use App\Events\LoanCreatedEvent;
+use App\Http\Resources\BookResource;
 
 class LoanController extends Controller
 {
-    public function index() {
-        
+    public function index()
+    {
+
         $loans = Loans::with(['book', 'user'])->get();
 
         $loans = $loans->map(function ($loan) {
@@ -28,6 +27,8 @@ class LoanController extends Controller
             ];
         });
 
+        $users = Users::where('guardian_cpf', auth()->user()->cpf)->get();
+
         return Inertia::render('seusLivrosView', [
             'loans' => $loans,
         ]);
@@ -36,7 +37,8 @@ class LoanController extends Controller
 
     }
 
-    public function create($id) {
+    public function create($id)
+    {
 
         $book = Books::findOrFail($id);
 
@@ -62,15 +64,12 @@ class LoanController extends Controller
             'users_cpf' => auth()->user()->cpf,
             'book_isbn' => $book->isbn,
             'loan_date' => null,
-            'return_date' => null, 
+            'return_date' => null,
             'status' => 'ready',
         ]);
 
-        $book->stock --;
+        $book->stock--;
         $book->save();
-
-        \Log::info('LoanController');
-        event(new LoanCreatedEvent($loan));
 
     }
 
@@ -83,7 +82,6 @@ class LoanController extends Controller
         ]);
     }
 
-    // Editar um empréstimo existente
     public function edit($id)
     {
         $loan = Loans::findOrFail($id);
@@ -97,7 +95,6 @@ class LoanController extends Controller
         ]);
     }
 
-    // Atualizar um empréstimo
     public function update(Request $request, $id)
     {
         $loan = Loans::findOrFail($id);
@@ -106,7 +103,6 @@ class LoanController extends Controller
         return redirect()->route('loans.index')->with('success', 'Empréstimo atualizado com sucesso!');
     }
 
-    // Excluir um empréstimo
     public function destroy($id)
     {
         $loan = Loans::findOrFail($id);

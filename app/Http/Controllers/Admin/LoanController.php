@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Loans;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Resources\Admin\LoanResource;
 
-class LoanController extends Controller
+class LoanController 
 {
     public function index(Request $request) {
         $loans = Loans::paginate(10);
@@ -22,4 +22,23 @@ class LoanController extends Controller
             'loan' => new LoanResource($loan)
         ]);
     }
+
+    public function active(Request $request, $id) {
+
+        $loan = Loans::findOrFail($id);
+        $loan->status = 'active';
+        $loan->loan_date = Carbon::now();
+        $loan->return_deadline = Carbon::now()->addMonths(2);
+        $loan->save();
+    }
+
+    public function return(Request $request, $id) {
+        $loan = Loans::findOrFail($id);
+        $loan->status = 'returned';
+        $loan->return_date = Carbon::now();
+        $loan->book->stock += 1;
+        $loan->book->save();
+        $loan->save();
+    }
+
 }

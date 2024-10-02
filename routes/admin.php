@@ -17,7 +17,8 @@ Route::prefix('admin')->middleware([RequireAdmin::class])->group(function () {
 
     Route::get('/emprestimos',  [Admin\LoanController::class, 'index'])->name('admin.emprestimos');
     Route::get('/emprestimo/{id}', [Admin\LoanController::class, 'show'])->name('admin.emprestimo');
-
+    Route::post('/emprestimo/{id}/confirm', [Admin\LoanController::class, 'active'])->name('admin.emprestimo.confirm');
+    Route::post('/emprestimo/{id}/return', [Admin\LoanController::class, 'return'])->name('admin.emprestimo.return');
 
     Route::post('/genres', [Admin\GenresController::class, 'store'])
         ->name('genres.store'); 

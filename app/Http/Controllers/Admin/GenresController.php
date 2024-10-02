@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Genres;
 use App\Http\Requests\Admin\GenreRequest;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
 
-class GenresController extends Controller
+class GenresController
 {
     public function store(GenreRequest $request)
     {

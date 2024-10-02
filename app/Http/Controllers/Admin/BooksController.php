@@ -8,9 +8,8 @@ use App\Models\Books;
 use App\Models\Genres;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\http\Controllers\Controller;
 
-class BooksController extends Controller
+class BooksController 
 {
     public function index(Request $request)
     {

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Http\Resources\Admin\UsersResource;
 
-class UsersController extends Controller
+class UsersController
 {
     public function index()
     {
